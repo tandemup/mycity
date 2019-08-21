@@ -1,0 +1,77 @@
+<ion-header no-border>
+    <ion-toolbar color="greengrab">
+            <ion-buttons color="light" slot="start" >
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+          <ion-title color="" class="main-header6">cart</ion-title>
+
+    </ion-toolbar>
+</ion-header>
+ 
+  <ion-content padding>
+    <div  *ngIf="selectedItems.length">
+      <ion-list>
+        <ion-item-sliding  *ngFor="let item of selectedItems; let i = index" lines="none" class="ion-margin-top" #slidingItem>
+            <ion-item lines="none">
+                <ion-thumbnail slot="start">
+                    <ion-img [src]="item.image"></ion-img>
+                </ion-thumbnail>
+                <ion-label  class="text-left">
+                  
+                  <h3>{{ item.name }}</h3>
+                  <p>Size: {{item.size}}</p>
+                  <p>
+                    Addon: <span *ngFor="let addOn of item.addOn;">{{ addOn.name}}	&nbsp;</span>
+                  </p>
+                  <!-- <ion-icon name="trash" slot="end" color="dark" (click)="removeCartProduct(i) " ></ion-icon> -->
+                </ion-label>
+                <h5  slot="end" text-right >{{ item.price | currency:'USD':'symbol' }}</h5>
+              </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option (click)="removeCartProduct(i, slidingItem) " >
+                <ion-icon slot="icon-only" size="small" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+
+        <!-- <ion-item lines="none" class="ion-margin-top">
+            <ion-label  class="text-left">
+                <h1 class="main-b-header6 margin-top-10">Total:</h1>
+            </ion-label>
+            <span slot="end">
+                <h1 class="main-b-header7 margin-bottom-3">{{ total | currency:'USD':'symbol' }}</h1>
+            </span>
+        </ion-item> -->
+        <ion-item lines="none" class="ion-margin-top">
+          <ion-label  class="text-left">
+              <h1 class="main-b-header8">Total:</h1>
+          </ion-label>
+          <h5 class="margin-top-5" slot="end" text-right >{{ total | currency:'USD':'symbol' }}</h5>       
+      </ion-item>
+        <!-- <ion-item class="ion-margin-top">
+          Total: <span slot="end">{{ total | currency:'USD':'symbol' }}</span>
+        </ion-item>-->
+      </ion-list> 
+    </div>
+      
+    <div  *ngIf="!selectedItems.length" text-center>
+        <div class="logo-box">
+            <ion-icon class="notification pop-in" name="ios-thunderstorm-outline" color="ulightgrey"  ></ion-icon>
+          </div>
+          <div class="ion-text-center">
+            <ion-text color="ulightgrey" class="ion-margin-bottom">
+              <h1 class="main-header5">Your shopping cart is empty</h1>
+            </ion-text>
+          </div>
+          <div>
+            <ion-button color="bluegrey" fill="blank" expand="full"  routerLink="/side-menu/food/tabs/tab1">Continue shopping</ion-button>
+          </div>
+      </div>
+  </ion-content>
+      
+  <ion-footer *ngIf="selectedItems.length" >
+      <ion-toolbar>
+          <ion-button color="greengrab" expand="full" (click)="checkout()">Checkout</ion-button>
+          <ion-button color="greengrab" fill="blank" expand="full" routerLink="/side-menu/food/tabs/tab1">Continue shopping</ion-button>
+      </ion-toolbar>
+  </ion-footer>

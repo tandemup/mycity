@@ -1,0 +1,86 @@
+<ion-header no-border>
+        <ion-toolbar color="greengrab">
+                <ion-buttons color="light" slot="start" >
+                        <ion-back-button></ion-back-button>
+                    </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="" class="main-header6">Profile</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button routerLink="/food-cart" >
+                        <ion-badge color="primary" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                        <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+        </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+<!-- <ion-card class="info-card-2">
+    <ion-item style="padding:0px !important;">
+        <ion-avatar slot="start">
+          <img src="https://randomuser.me/api/portraits/men/18.jpg">
+        </ion-avatar>
+        <ion-label>
+            <h3 class="main-header6">{{(userDetail | async)?.firstname}}</h3>
+            <p class="main-b-header9"  (click)="logout()">LOGOUT</p>
+            <ion-button color="dark" fill="none"  (click)="logout()">LOGOUT</ion-button>
+          </ion-label>
+    
+    </ion-item>
+
+</ion-card> -->
+<ion-card class="info-card-2 margin-top-0 margin-bottom-0">
+        <div id="profile1-info" class="test-class" padding>
+            <img id="profile1-image" class="pop-in" src="https://randomuser.me/api/portraits/men/18.jpg" />
+            <h3 id="profile1-name">{{(userDetail | async)?.firstname}}</h3>
+            <!--<p>{{(profile2 | async)?.company}} &bull; {{(profile2 | async)?.position}}</p> -->
+            <p class="profile1-description">{{(userDetail | async)?.email}}</p>
+            <ion-button size="small" color="greengrab-invert" (click)="logout()">LOGOUT</ion-button>
+            <!-- <ion-button *ngIf="following"  color="light" (click)="follow()">
+                <ion-icon slot="start" name="checkmark"></ion-icon>
+                Following
+            </ion-button> -->
+        </div>
+    </ion-card>
+
+<ion-card class="info-card-2">
+    <ion-list>
+        <ion-list-header>
+            Account information
+          </ion-list-header>
+        <ion-item href="#" routerLink="/side-menu/profile">
+            <ion-label>Name: {{(userDetail | async)?.firstname}} </ion-label>
+          </ion-item>
+          <ion-item href="#" routerLink="/side-menu/profile">
+            <ion-label>Email: {{(userDetail | async)?.email}}</ion-label>
+          </ion-item>
+
+    </ion-list>
+</ion-card>
+
+
+<!--  -->
+<ion-card class="info-card-2">
+    <ion-list>
+        <ion-list-header>
+            Detail
+          </ion-list-header>
+          <ion-item href="#" routerLink="/side-menu/food/tabs/tab3">
+            <ion-label>My orders</ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>Delivery address</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Payment type</ion-label>
+            </ion-item>
+            <ion-item >
+                <ion-label>Change password</ion-label>
+              </ion-item>
+      </ion-list>
+</ion-card>
+
+
+
+
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-toolbar class="bar-header" mode="ios"> 
+        <!-- <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons> -->
+        <ion-title  class="main-header4">Favorite</ion-title>
+    </ion-toolbar>
+    <!-- <ion-item lines="none">
+        <ion-label>
+            <h1 class="travel_header1">Favorites</h1>
+        </ion-label>
+    </ion-item>     -->
+</ion-header>
+
+
+
+
+<ion-content  no-padding>
+
+<!-- <div *ngIf="!favorites">
+    <div class="icon-box">
+        <ion-icon name="md-notifications" color="light" ></ion-icon>
+    </div>
+    <div>
+        <ion-text color="light">
+            <h1 text-center class="travel_header2">Sorry, not found.</h1>
+        </ion-text>
+    </div>
+</div> -->
+<ion-list class="ion-margin-top">
+        <ion-item-sliding *ngFor="let favorite of favorites | async" class="ion-padding-top"  #slidingItem>
+            <!-- routerLink="/side-menu/travel/tabs/tab3/travel-place-detail/{{favorite.placeId}}" -->
+                <ion-item   lines="none" routerLink="/travel-place-detail/{{favorite.placeId}}" >
+                    <!-- <ion-avatar slot="start">
+                        <ion-img [src]="favorite.image_header"></ion-img>
+                    </ion-avatar> -->
+                    <ion-thumbnail slot="start">
+                            <ion-img [src]="favorite.image_header"></ion-img>
+                    </ion-thumbnail>
+                    <ion-label>
+                            <h2>{{favorite.name}}</h2>
+                        
+                            <ion-icon style="font-size: 14px !important;" color="warning" *ngFor="let i of [0,1,2,3,4]" [name]="i < favorite.rating ? 'star' : 'star-outline'">
+                            </ion-icon>
+                          </ion-label>
+                </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option  (click)="deleteFavDialog(favorite.id, slidingItem)">
+                            <ion-item-option>Delete</ion-item-option>
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+</ion-list>
+
+
+</ion-content>

@@ -1,0 +1,52 @@
+
+<ion-header no-border >
+        <ion-toolbar color="bluegrey">
+                <ion-buttons color="light" slot="start" >
+                    <ion-back-button></ion-back-button>
+                </ion-buttons>
+                <ion-title color="light" class="main-header6">Brand</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button routerLink="/shopping-cart" >
+                        <ion-badge color="danger" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                        <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+  <ion-content  no-padding>
+        <ion-item lines="none">
+                <ion-label>
+                  <ion-text color="">
+                      <!-- <h1 class="travel_header1">Category</h1> -->
+                      <h1 class="main-header6">{{(group | async)?.name}}</h1>
+                  </ion-text>
+                  <p text-wrap>{{(group | async)?.description}}</p>
+                </ion-label> 
+            </ion-item>    
+
+<ion-grid class="ion-margin-top ion-padding-top">
+        <ion-row wrap>
+            <ion-col tappable  size="6"  class="ion-padding" *ngFor="let item of items | async" color="gray">
+                <ion-card class="shop-main-card shop-card-tall-2 ion-margin-bottom"   (click)="openDetail('shopping-detail',item.id)"   >
+                     <!-- add discount condition when item discount is True -->
+                    <div *ngIf="item.discount"  class="ribbon">SALE</div>
+                    <div class="shop-div-tall-bg-2"  [ngStyle]="{'background-image': 'url(' + item.image+ ')'}"></div>
+                    <div class="ion-margin-top main-header8" text-wrap>{{item.name}}</div>
+                    <ion-icon  style="font-size: 12px !important;" color="warning" *ngFor="let i of [0,1,2,3,4]" [name]="i < item.rating  ? 'star' : 'star-outline'"></ion-icon>
+        
+                    <div *ngIf="!item.discount" class="main-b-header9" >
+                        <ion-text color="grey">{{item.price | currency}}</ion-text>
+                    </div>
+                    <div *ngIf="item.discount" class="main-b-header9" >
+                        <ion-text color="grey">{{item.discount_price | currency}}&nbsp;&nbsp;</ion-text>
+                        <ion-text color="lightgrey" class="discount">{{item.price | currency}}</ion-text>
+                    </div>
+    
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+  </ion-content>
+  

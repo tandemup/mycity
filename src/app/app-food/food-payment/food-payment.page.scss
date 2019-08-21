@@ -1,0 +1,28 @@
+ion-content{
+    --background: #f6f6f6;
+}
+ion-label{
+    padding-left: 15px;
+}
+
+ion-thumbnail {
+   // --size: 20px;
+    width: 36px !important;
+    height: 22px !important;
+
+    // // margin-left: 24px;
+    // margin-bottom: 15px;
+    //border-radius: 3px  !important;
+    background-color: #eeeeee;
+
+    // // min-width: 6rem;    
+    // // min-height: 8rem;
+    // min-width: 6rem;    
+    // min-height: 5rem;
+    // margin-left: 24px;
+    ion-img {
+       // border-radius: 3px  !important;
+        // max-width: 6rem;    
+        // min-width: 8rem;
+    }
+}

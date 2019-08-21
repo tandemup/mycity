@@ -1,0 +1,97 @@
+<ion-header [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+    <ion-toolbar color="realgreen-invert" class="first" >
+        <ion-buttons  slot="start" >
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <!-- <ion-buttons slot="start">
+                <ion-back-button defaultHref="home"></ion-back-button>
+              </ion-buttons> -->
+              <ion-title color="realgreen" class="main-b-header7">TRULE'</ion-title>
+    </ion-toolbar>
+
+
+  <ion-toolbar style="margin-bottom: 10px;">
+      <ion-segment color="realgreen" [(ngModel)]="viewType" >
+        <ion-segment-button value="buy">
+          <ion-label>Buy</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="rent" >
+          <ion-label>Rent</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #pageContent no-padding >
+
+
+
+
+<div [ngClass]="{ 'hide': viewType != 'buy' }">
+    <!--*********** Show buy items ***********-->
+
+      <!--  routerLink="/side-menu/food/tabs/tab1/food-place-detail/{{recommended.id}}" -->
+          <ion-card class="real-card2 slide-up"  *ngFor="let buyItem of buyItems | async "   routerLink="/real-detail/{{buyItem.id}}"  >
+            <div *ngIf="buyItem.recommended"  class="ribbon pop-in">Best</div>
+            <div class="real-card2-bg"  [ngStyle]="{'background-image': 'url(' + buyItem.image_header+ ')'}">
+            </div>
+            <ion-card-content class="card1-padding">
+               
+                <ion-label><ion-text color="black"><h2 class="main-b-header7">{{buyItem.title}}</h2></ion-text></ion-label>
+
+                <ion-label><h3 class="margin-top-3">{{buyItem.short_features}}</h3></ion-label>
+
+                <ion-label  text-wrap>
+                    <h3 class="margin-top-3"> 
+                        <!-- <ion-icon   name="ios-pin" color="grey" size="small"></ion-icon> -->
+                        {{buyItem.location}}
+                    </h3>
+                </ion-label>
+                <ion-text color="black" class="ion-text-right"> <h2 class="margin-top-5"><strong>{{buyItem.price | currency}}</strong></h2></ion-text>
+
+            </ion-card-content>
+
+            
+          </ion-card>
+
+</div>
+
+
+<div [ngClass]="{ 'hide': viewType != 'rent' }">
+    <!--*********** Show rent items ***********-->
+
+      <!--  routerLink="/side-menu/food/tabs/tab1/food-place-detail/{{recommended.id}}" -->
+          <ion-card class="real-card2 slide-up"  *ngFor="let rentItem of rentItems | async "   routerLink="/real-detail/{{rentItem.id}}"  >
+            <div *ngIf="rentItem.recommended"  class="ribbon pop-in">Best</div>
+            <div class="real-card2-bg"  [ngStyle]="{'background-image': 'url(' + rentItem.image_header+ ')'}">
+            </div>
+            <ion-card-content class="card1-padding">
+               
+                <ion-label><ion-text color="black"><h2 class="main-b-header7">{{rentItem.title}}</h2></ion-text></ion-label>
+
+                <ion-label><h3 class="margin-top-3">{{rentItem.short_features}}</h3></ion-label>
+
+                <ion-label  text-wrap>
+                    <h3 class="margin-top-3"> 
+                        <!-- <ion-icon   name="ios-pin" color="grey" size="small"></ion-icon> -->
+                        {{rentItem.location}}
+                    </h3>
+                </ion-label>
+                <ion-text color="black" class="ion-text-right"> <h2 class="margin-top-5"><strong>{{rentItem.price | currency}}</strong></h2></ion-text>
+
+            </ion-card-content>              
+            
+            
+       
+          </ion-card>
+    
+</div>
+ <!-- fab placed to the bottom end -->
+ <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openMap(viewType)">
+    <ion-icon name="ios-map-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+</ion-content>

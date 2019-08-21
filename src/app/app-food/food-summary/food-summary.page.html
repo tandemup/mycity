@@ -1,0 +1,71 @@
+
+<ion-header no-border>
+        <ion-toolbar color="greengrab">
+                <ion-buttons color="light" slot="start" >
+                        <ion-back-button></ion-back-button>
+                    </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="" class="main-header6">Summary</ion-title>
+        </ion-toolbar>
+</ion-header>
+  <ion-content padding>
+
+
+
+  <h1 class="main-header6">Order summary</h1>
+  <ion-card class="info-card">
+    <ion-list>
+      <ion-item *ngFor="let item of orderItems; let i = index" lines="none" class="ion-margin-top" lines="none">
+          <ion-thumbnail slot="start">
+              <ion-img [src]="item.image"></ion-img>
+          </ion-thumbnail>
+          <ion-label  class="text-left">
+            
+            <h3>{{ item.name }}</h3>
+            <p>Size: {{item.size}}</p>
+            <p>
+              Addon: <span *ngFor="let addOn of item.addOn;">{{ addOn.name}}	&nbsp;</span>
+            </p>
+            <!-- <ion-icon name="trash" slot="end" color="dark" (click)="removeCartProduct(i) " ></ion-icon> -->
+          </ion-label>
+          <h5  slot="end" text-right >{{ item.price | currency:'USD':'symbol' }}</h5>
+        </ion-item>
+        <ion-item lines="none" class="ion-margin-top">
+            <ion-label  class="text-left">
+                <h1 class="main-b-header8">Total:</h1>
+
+            </ion-label>
+            <h5 class="margin-top-5" slot="end" text-right >{{ total | currency:'USD':'symbol' }}</h5>       
+            <!-- <span slot="end">{{ total | currency:'USD':'symbol' }}</span> -->
+        </ion-item>
+
+        <ion-item lines="none" class="ion-text-left">
+            <ion-label  class="text-left">
+                <h1 class="main-b-header8">Payment:</h1>
+
+            </ion-label> 
+            <h5 class="margin-top-5" slot="end" text-right >{{ paymentType}}</h5>            
+            <!-- <span slot="end" text-right >{{ paymentType}}</span> -->
+          </ion-item>
+      </ion-list>
+  </ion-card>
+
+
+  <h1 class="main-header6">Delivery to</h1>
+  <ion-card  class="info-card ion-padding-top ion-padding-bottom"  >
+      <ion-item lines="none">
+        <ion-label>
+                <h3>{{(address | async)?.label}}</h3>
+                <p>{{(address | async)?.fullname}}</p>
+                <p class="ion-text-wrap" >{{(address | async)?.address}}</p>
+                <p>{{(address | async)?.phone}}</p>
+        </ion-label>
+      </ion-item>
+  </ion-card>
+
+  </ion-content>
+  <ion-footer>
+      <ion-toolbar>
+          <ion-button color="greengrab" expand="full" (click)="addOrder()">Place order</ion-button>
+      </ion-toolbar>
+  </ion-footer>

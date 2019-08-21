@@ -1,0 +1,23 @@
+
+<ion-header>
+    <ion-toolbar mode="ios"> 
+        <ion-title  class="main-header4">Category</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content  no-padding >
+ 
+    <ion-card class="main-card travel-card-wide " tappable  *ngFor="let category of categories " >
+        <div class="travel-card-wide-bg" [ngStyle]="{'background-image': 'url(' + category.image+ ')'}"  routerLink="../travel-place/{{category.id}}" >
+            <h2 class="travel-card-wide-title pop-in"> {{category.name}}</h2>   
+            <p class="travel-card-wide-sub-title pop-in">{{category.group}}</p>           
+        </div>
+    </ion-card>
+
+<div class="footer-box"></div>
+
+</ion-content>
+
+
+<ion-footer>
+      
+</ion-footer>

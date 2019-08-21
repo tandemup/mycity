@@ -1,0 +1,96 @@
+
+<ion-header  [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+        <ion-toolbar color="realgreen-invert">
+                <ion-buttons slot="start">
+                    <ion-button (click)="toggleSideMenu()">
+                        <ion-icon class="menu-icon"  name="md-menu" color="realgreen" slot="start"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search by Location, Area , State or Pin Code" (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="realgreen" class="main-b-header7">TRULE'</ion-title>
+           
+        </ion-toolbar>
+        <ion-toolbar color="realgreen-invert">
+            <ion-searchbar mode="ios" color="white" placeholder="Search by Location, Area or Pin Code.." (ionFocus)="openSearchModal()" search-icon="search" ></ion-searchbar>  
+        </ion-toolbar>
+    </ion-header>
+
+<ion-content  #pageContent no-padding>
+
+
+    <ion-item lines="none">
+        <h1 class="main-header5">Real estate agents</h1>
+    </ion-item>
+<!--*********** Show agents with horizontal scroll  ***********-->
+<div class="horizontal-scroll " >
+    <div class="agent-icon" *ngFor="let agent of agents | async ">
+        <ion-avatar mode="ios" slot="start"  (click)="openDetail('side-menu/realestate/tabs/tab1/real-agent-detail',agent.id)" >
+            <img [src]="agent.image">
+        </ion-avatar>
+    </div>
+</div>
+
+<!--*****************************-->
+<!--****** Show buy items *******-->
+<!--*****************************-->
+<ion-item lines="none">
+    <h1 class="main-header5">Buy</h1>
+</ion-item>
+  <div class="horizontal-scroll " >
+    <!--  routerLink="/side-menu/food/tabs/tab1/food-place-detail/{{recommended.id}}" -->
+        <ion-card mode="ios" class="main-h-card real-card1 slide-right " tappable *ngFor="let buyItem of buyItems | async "  (click)="openDetail('real-detail',buyItem.id)"   >
+            <!-- <div *ngIf="buyItem.recommended" class="bookmarkRibbon"></div> -->
+            <div *ngIf="buyItem.recommended"  class="ribbon pop-in">Best</div>
+            <div class="real-card1-bg"  [ngStyle]="{'background-image': 'url(' + buyItem.image_header+ ')'}">
+            </div>
+            <ion-card-content class="card1-padding ">
+               
+                <ion-label><ion-text color="black"><h2 class="main-b-header8">{{buyItem.title}}</h2></ion-text></ion-label>
+
+                <ion-label><h3 class="margin-top-3">{{buyItem.short_features}}</h3></ion-label>
+
+                <ion-label  text-wrap>
+                    <h3 class="margin-top-3"> 
+                        <!-- <ion-icon   name="ios-pin" color="grey" size="small"></ion-icon> -->
+                        {{buyItem.location}}
+                    </h3>
+                </ion-label>
+                <ion-text color="black" class="ion-text-right"> <h2 class="margin-top-5 main-b-header8"><strong>{{buyItem.price | currency}}</strong></h2></ion-text>
+
+            </ion-card-content>
+
+        </ion-card>
+</div>
+
+<!--*****************************-->
+<!--****** Show rent items *******-->
+<!--*****************************-->
+
+<ion-item lines="none">
+    <h1 class="margin-top-3 main-header5">Rent</h1>
+</ion-item>
+<div class="horizontal-scroll " >
+    <!--  routerLink="/side-menu/food/tabs/tab1/food-place-detail/{{recommended.id}}" -->
+        <ion-card class="main-h-card real-card1 slide-right "  *ngFor="let rentItem of rentItems | async "  (click)="openDetail('real-detail',rentItem.id)"   >
+            <div class="real-card1-bg"  [ngStyle]="{'background-image': 'url(' + rentItem.image_header+ ')'}"> </div>
+            <ion-card-content class="card1-padding">
+               
+                    <ion-label><ion-text color="black"><h2 class="main-b-header8">{{rentItem.title}}</h2></ion-text></ion-label>
+    
+                    <ion-label><h3 class="margin-top-3">{{rentItem.short_features}}</h3></ion-label>
+    
+                    <ion-label  text-wrap>
+                        <h3 class="margin-top-3"> 
+                            <!-- <ion-icon   name="ios-pin" color="grey" size="small"></ion-icon> -->
+                            {{rentItem.location}}
+                        </h3>
+                    </ion-label>
+                    <ion-text color="black" class="ion-text-right"> <h2 class="margin-top-5 main-b-header8"><strong>{{rentItem.price | currency}}</strong></h2></ion-text>
+                </ion-card-content>
+               
+
+        </ion-card>
+</div>
+
+<div class="footer-box"></div>
+</ion-content>

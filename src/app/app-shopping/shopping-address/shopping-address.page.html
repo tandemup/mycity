@@ -1,0 +1,67 @@
+<ion-header no-border >
+        <ion-toolbar color="bluegrey">
+                <ion-title color="light" class="main-header6">Address</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+  <ion-content padding>
+
+
+
+        <!-- <ion-list>
+                <ion-radio-group>
+                  <ion-list-header>
+                    <ion-label>Select shipping address</ion-label>
+                  </ion-list-header>
+                  <ion-item lines="none">
+                        <ion-label>
+                                <h3>dfgdgd</h3>
+                                <p>dffgdfgddfgdfg</p>
+                                <p class="ion-text-wrap" >dffgdfdg</p>
+                                <p>dffgdffgdfg</p>
+                        </ion-label>
+                    <ion-radio mode="md" slot="start" value="biff" checked></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-list> -->
+
+        <ion-card class="info-card">
+                <ion-list-header class="">
+                    <ion-label>Select shipping address</ion-label>
+                </ion-list-header>
+                <ion-radio-group [(ngModel)]="checkedAddress">
+                            <div  *ngFor="let address of addresses | async" class="ion-padding-top ion-padding-bottom"  >
+                              <ion-item-sliding>
+                                    <ion-item lines="none">
+                                        <ion-label>
+                                                <p>{{address.label}}</p>
+                                                <h3>{{address.fullname}}</h3>
+                                                <h3 class="ion-text-wrap" >{{address.address}}</h3>
+                                                <h3>{{address.phone}}</h3>
+                                        </ion-label>
+                                        <!-- <div slot="end" class="click-outside"  (click)="editAddress(address.id)" > <h4 class="main-header7">change</h4></div> -->
+                                        <!-- <ion-icon name="md-create" slot="end" color="dark" (click)="editAddress(address.id)" ></ion-icon>  -->
+                                            <ion-radio mode = "md" color="bluegrey" slot="start" [value]="address.id"  (ionSelect)="selectAddress(i,address.id)"></ion-radio>
+                                    </ion-item>
+                                    <ion-item-options side="end">
+                                      <ion-item-option color="bluegrey"(click)="editAddress(address.id)">Edit</ion-item-option>
+                                    </ion-item-options>
+                                  </ion-item-sliding>
+                            </div>
+                      </ion-radio-group>
+        </ion-card>
+
+
+
+      <ion-button color="" fill="blank" expand="full"  routerLink="/shopping-address-add">Add address</ion-button>
+  </ion-content>
+
+  <ion-footer>
+    <!-- <ion-toolbar>
+        <ion-button color="success" expand="full" (click)="gotoPayment()">Continue payment</ion-button>
+    </ion-toolbar> -->
+    <ion-toolbar >
+        <ion-button *ngIf="userAuth" color="bluegrey" expand="full" (click)="gotoPayment()">Continue payment</ion-button>
+        <ion-button color="bluegrey" fill="blank" expand="full" routerLink="/side-menu/shopping/tabs/tab1">Cancel</ion-button>
+    </ion-toolbar>
+</ion-footer>

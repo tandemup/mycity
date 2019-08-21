@@ -1,0 +1,50 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+        <ion-back-button color="orange"> </ion-back-button>
+    </ion-buttons>
+    <ion-title  class="main-header4">Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-padding>
+    <!-- <ion-item lines="none">
+        <ion-label>
+          <ion-text color="">
+              <h1 class="travel_header2">Reviews</h1>
+          </ion-text>
+        </ion-label>
+    </ion-item>     -->
+
+  <!--*********** Review list  ***********-->
+  <ion-card *ngFor="let review of reviews | async" >
+    <ion-item  lines="none" detail="false">
+        <ion-avatar slot="start" class="avatar-top">
+            <ion-img [src]="review.userProfileImage"></ion-img>
+        </ion-avatar>
+        <ion-label >
+            <h2>{{review.name}}</h2>
+            <p> {{review.createdTime.toDate() | date: 'dd/MM/yyyy'}}</p>
+        </ion-label>
+        <ion-label text-right slot="end" >            
+            <ion-icon  style="margin-right:2px; font-size: 14px !important;" color="warning" *ngFor="let i of [0,1,2,3,4]" [name]="i < review.rating ? 'star' : 'star-outline'"></ion-icon>
+        </ion-label>
+        
+    </ion-item>
+    
+    <ion-card-content>
+        {{review.comment}}
+    </ion-card-content>
+</ion-card>
+
+
+</ion-content>
+<ion-footer no-border>
+  <ion-toolbar>
+        <div class="ion-margin">
+                <!-- <ion-button expand="block"  color="orange"  *ngIf="(place | async) as placeId" class="team" (click)="openAddReview(placeId.id)">Write review</ion-button> -->
+            <ion-button expand="block"  color="orange"  class="team" (click)="openAddReview()">Write a review</ion-button>
+        </div>
+  </ion-toolbar>
+</ion-footer>

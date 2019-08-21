@@ -1,0 +1,47 @@
+
+<ion-header no-border >
+                <ion-toolbar color="bluegrey">
+                        <ion-buttons color="light" slot="start" >
+                            <ion-back-button></ion-back-button>
+                        </ion-buttons>
+                        <ion-title color="light" class="main-header6">My orders</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button routerLink="/shopping-cart" >
+                                <ion-badge color="danger" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                                <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+
+
+            <ion-content padding >
+                <!-- routerLink="/side-menu/shopping/tabs/tab4/shopping-my-order-detail/{{order.id}}" -->
+                <ion-card  *ngFor="let order of myOrders | async" class="info-card ion-margin ion-padding-top ion-padding-bottom"  >
+                      <ion-item lines="none">
+                              <ion-label>
+                                      <h3 class="main-b-header8"><strong>OrderId# {{order.orderId}}</strong></h3>
+                                      <p>Ordered time: {{order.createdTime.toDate() | date: 'dd/MM/yyyy'}}</p>
+                                      <h3>payment type: {{order.paymentType}}</h3>
+                                      <ion-text color="black"> <h3 >Total:{{order.totalPrice | currency}}</h3></ion-text>
+                              </ion-label>
+                              <ion-badge *ngIf="order.status === 'pending'"   slot="end"  color="primary">{{order.status}}</ion-badge>
+                              <ion-badge *ngIf="order.status === 'delivering'"  slot="start"  color="warning">{{order.status}}</ion-badge>
+                              <ion-badge *ngIf="order.status === 'complete'"   slot="end"  color="success">{{order.status}}</ion-badge>
+                              <ion-badge *ngIf="order.status === 'cancel'"  slot="end"  color="meduim">{{order.status}}</ion-badge>                
+                      </ion-item>
+              </ion-card>
+
+              <!-- <ion-card *ngFor="let order of myOrders | async"  class="info-card ion-margin ion-padding ion-padding-top ion-padding-bottom padding-left-25">
+                    <ion-text  color="dark">
+                        <h1 class="main-b-header7">OrderId# {{order.orderId}}</h1>
+                    </ion-text>
+                    <h1 class="main-header8 margin-top-0">On: {{order.createdTime.toDate() | date:'medium'}}</h1>
+                    <h3>payment type: {{order.paymentType}}</h3>
+                    <ion-badge *ngIf="order.status === 'pending'"    color="primary"> {{orderStatus}}</ion-badge>
+                    <ion-badge *ngIf="order.status === 'delivering'"   color="warning"> {{orderStatus}}</ion-badge>
+                    <ion-badge  *ngIf="order.status === 'complete'"   color="success"> {{orderStatus}}</ion-badge>
+                    <ion-badge  *ngIf="order.status === 'cancel'"   color="medium"> {{orderStatus}}</ion-badge>
+            </ion-card> -->
+      </ion-content>
+      

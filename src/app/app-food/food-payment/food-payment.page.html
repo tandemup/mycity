@@ -1,0 +1,79 @@
+
+<ion-header no-border>
+        <ion-toolbar color="greengrab">
+                <ion-buttons color="light" slot="start" >
+                        <ion-back-button></ion-back-button>
+                    </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="" class="main-header6">Payment</ion-title>
+        </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    
+        <ion-card class="info-card">
+                <ion-list-header class="">
+                    <ion-label>Select payment type</ion-label>
+                </ion-list-header>
+                <ion-radio-group>
+                        <div class="ion-padding-top ion-padding-bottom margin-top-15" >
+                            <ion-item lines="none">
+                                <ion-radio slot="start" [value]="cc"  mode="md" color="bluegrey" (ionSelect)="selectPayment('cc')"></ion-radio>
+                                <ion-thumbnail slot="start">
+                                    <ion-img src="https://firebasestorage.googleapis.com/v0/b/ionic4firebase-2c0e6.appspot.com/o/master_card_184.75750577367px_1226655_easyicon.net.png?alt=media&token=514ef90a-6d07-48cc-b126-99f7e1b0acac"></ion-img>
+                                </ion-thumbnail>
+                                <ion-label>
+                                        <h2 class="main-header5">Credit card</h2>
+                                </ion-label>
+                              
+                            </ion-item>
+                        </div>
+                        
+                        <div class="ion-padding-top ion-padding-bottom"  >
+                            <ion-item lines="none">
+                                <ion-radio slot="start" [value]="paypal"  mode="md" color="bluegrey" (ionSelect)="selectPayment('paypal')"></ion-radio>
+                                <ion-thumbnail slot="start">
+                                    <ion-img src="https://firebasestorage.googleapis.com/v0/b/ionic4firebase-2c0e6.appspot.com/o/paypal_184.75750577367px_1226641_easyicon.net.png?alt=media&token=d90c17b0-a24b-47d0-84c5-17133c41df8b"></ion-img>
+                                </ion-thumbnail>
+                            <ion-label>
+                                    <h2 class="main-header5">Paypal</h2>
+                            </ion-label>
+                            
+                            </ion-item>
+                        </div>         
+                        <div class="ion-padding-top ion-padding-bottom " >
+                                <ion-item lines="none">
+                                    <ion-radio slot="start" [value]="bank"  mode="md" color="bluegrey" (ionSelect)="selectPayment('bank')"></ion-radio>
+                                    <ion-thumbnail slot="start">
+                                        <ion-img src="https://firebasestorage.googleapis.com/v0/b/ionic4firebase-2c0e6.appspot.com/o/bank_transfer_184.75750577367px_1226658_easyicon.net.png?alt=media&token=365376ab-9d1c-4405-b4a7-ca3704e9f0fa"></ion-img>
+                                    </ion-thumbnail>
+                                    <ion-label>
+                                            <h2 class="main-header5">Bank tranfer</h2>
+                                    </ion-label>
+                                  
+                                </ion-item>
+                            </div>                  
+                        <div class="ion-padding-top ion-padding-bottom"  >
+                            <ion-item lines="none">
+                                <ion-radio slot="start" [value]="cash"  mode="md" color="bluegrey" (ionSelect)="selectPayment('cash')" checked></ion-radio>
+                                <ion-thumbnail slot="start">
+                                        <ion-img src="https://firebasestorage.googleapis.com/v0/b/ionic4firebase-2c0e6.appspot.com/o/bluepay_184.75750577367px_1226652_easyicon.net.png?alt=media&token=a8593936-3d42-4125-8794-1441cd9cc24f"></ion-img>
+                                    </ion-thumbnail>
+                                <ion-label>
+                                        <h2 class="main-header5">Cash on delivery</h2>
+                                </ion-label>
+                               
+                              
+                            </ion-item>
+                        </div>      
+                    </ion-radio-group>
+        </ion-card>
+ 
+    <!-- <ion-button color="dark" fill="outline" expand="full"  routerLink="/food-address-add">Add address</ion-button> -->
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-button color="greengrab" expand="full" (click)="gotoCheckout()">Continue payment</ion-button>
+    </ion-toolbar>
+</ion-footer>
+  
+  

@@ -1,0 +1,38 @@
+
+<ion-header>
+        <ion-toolbar color="greengrab">
+                <ion-buttons color="light" slot="start" >
+                        <ion-back-button></ion-back-button>
+                    </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="" class="main-header6">My orders</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button routerLink="/food-cart" >
+                        <ion-badge color="primary" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                        <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+        </ion-toolbar>
+     
+</ion-header>
+
+
+<ion-content padding >
+
+          <ion-card  *ngFor="let order of myOrders | async" class="info-card ion-margin ion-padding-top ion-padding-bottom"  >
+                <ion-item lines="none" routerLink="/side-menu/food/tabs/tab3/food-myorder-detail/{{order.id}}">
+                        <ion-label>
+                                <h3><strong>OrderId# {{order.orderId}}</strong></h3>
+                                <p>Ordered time: {{order.createdTime.toDate() | date: 'dd/MM/yyyy'}}</p>
+                                <h3>payment type: {{order.paymentType}}</h3>
+                                <ion-text color="black"> <h3>Total:{{order.totalPrice | currency}}</h3></ion-text>
+                        </ion-label>
+                        
+                        <ion-badge *ngIf="order.status === 'pending'"   slot="end"  color="primary">{{order.status}}</ion-badge>
+                        <ion-badge *ngIf="order.status === 'delivering'"  slot="start"  color="warning">{{order.status}}</ion-badge>
+                        <ion-badge *ngIf="order.status === 'complete'"   slot="end"  color="success">{{order.status}}</ion-badge>
+                        <ion-badge *ngIf="order.status === 'cancel'"  slot="end"  color="meduim">{{order.status}}</ion-badge>
+                </ion-item>
+        </ion-card>
+
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header no-border>
+        <ion-toolbar color="greengrab">
+                <ion-buttons color="light" slot="start" >
+                        <ion-back-button></ion-back-button>
+                    </ion-buttons>
+                <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+              <ion-title color="" class="main-header6">Category</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button routerLink="/food-cart" >
+                        <ion-badge color="primary" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                        <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+        </ion-toolbar>
+</ion-header>
+
+
+<ion-content  no-padding>
+    <ion-card class="card-wide " tappable  *ngFor="let category of categories | async" >
+        <div class="card-wide-bg" [ngStyle]="{'background-image': 'url(' + category.image+ ')'}"  routerLink="/side-menu/food/tabs/tab2/food-item/{{category.id}}" >
+            <h2 class="card-wide-title pop-in"> {{category.name}}</h2>      
+        </div>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-header >
+  <ion-toolbar>
+      <ion-title  class="main-header4">Map</ion-title>
+  
+  </ion-toolbar>
+  <ion-toolbar >
+      <ion-segment mode="ios" color="orange" [(ngModel)]="viewType" >
+          <ion-segment-button value="map">
+            <ion-label>Map</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="list">
+            <ion-label>List</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+    <!--*********** Map wrapper  ***********-->
+<!-- <div [ngClass]="{ 'hide': viewType != 'map' }"> -->
+    <div id="wrapper" [ngClass]="{ 'hide': viewType != 'map' }">
+        <!--*********** Map  ***********-->
+        <div #map id="map"></div>
+
+        <!--*********** info box  ***********-->
+        <div class="map-bottom request-controls">
+        </div>
+    
+  </div>
+<!-- </div> -->
+
+
+
+
+
+  <div [ngClass]="{ 'hide': viewType != 'list' }">
+      <ion-list class="ion-margin-top">
+          <ion-item *ngFor="let place of places" lines="none" button routerLink="/side-menu/travel/tabs/tab4/travel-place-detail/{{place.id}}"  >
+              <ion-thumbnail slot="start">
+                  <ion-img [src]="place.image_header"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{place.name}}</h2>
+                <p>{{place.description}}</p>
+                <ion-icon style="font-size: 14px !important;" color="warning" *ngFor="let i of [0,1,2,3,4]" [name]="i < place.rating ? 'star' : 'star-outline'">
+                </ion-icon>
+              </ion-label>
+          </ion-item>
+
+        </ion-list>
+  </div>
+
+
+
+
+</ion-content>
+
