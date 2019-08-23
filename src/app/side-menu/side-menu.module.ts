@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     component: SideMenuPage,
     children: [
-      //************ Auth  ***********//
+      // ************ Auth  ***********//
       {
         path: 'login',
         loadChildren: '../app-auth/login/login.module#LoginPageModule'
@@ -30,7 +30,7 @@ const routes: Routes = [
         loadChildren: '../app-auth/forgot/forgot.module#ForgotPageModule'
       },
 
-      //************ APPS ***********/
+      // ************ APPS ***********/
 
       {
         path: 'travel',
@@ -52,7 +52,7 @@ const routes: Routes = [
         path: 'radio',
         loadChildren: '../app-radio/radio-home/radio-home.module#RadioHomePageModule'
       },
-      //************ UI layout ***********/
+      // ************ UI layout ***********/
       {
         path: 'chat',
         loadChildren: '../ui-layouts/chat/chat.module#ChatPageModule'
@@ -96,13 +96,13 @@ const routes: Routes = [
       {
         path: 'timeline',
         loadChildren: '../ui-layouts/timeline/timeline.module#TimelinePageModule'
-      },    
-      
-      //************ UI components ***********/
+      },
+
+      // ************ UI components ***********/
       {
         path: 'animation',
         loadChildren: '../ui-components/animation/animation.module#AnimationPageModule'
-      },  
+      },
       {
         path: 'header-fading',
         loadChildren: '../ui-components/header-fading/header-fading.module#HeaderFadingPageModule'

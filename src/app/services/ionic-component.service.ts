@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuController,LoadingController ,AlertController,ToastController} from '@ionic/angular';
+import { MenuController, LoadingController , AlertController, ToastController} from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +14,20 @@ export class IonicComponentService {
     public menuCtrl: MenuController,
   ) { }
 
-//https://stackoverflow.com/questions/52574448/ionic-4-loading-controller-dismiss-is-called-before-present-which-will-ke
-//**********************************//
-//****** Loading component    ******//
-//**********************************//
+// https://stackoverflow.com/questions/52574448/ionic-4-loading-controller-dismiss-is-called-before-present-which-will-ke
+// **********************************//
+// ****** Loading component    ******//
+// **********************************//
 
   async presentLoading() {
     this.isLoading = true;
     return await this.loadingController.create({
-      spinner: "crescent",
+      spinner: 'crescent',
       duration: 10000,
       //   message: 'Please wait...',
        translucent: true,
        cssClass: 'loadingDialog'
-      //duration: 5000,
+      // duration: 5000,
     }).then(a => {
       a.present().then(() => {
         console.log('presented');
@@ -38,15 +38,15 @@ export class IonicComponentService {
     });
   }
 
-  async presentTimeoutLoading(timeout: number,translucent:boolean) {
+  async presentTimeoutLoading(timeout: number, translucent: boolean) {
     this.isLoading = true;
     return await this.loadingController.create({
-      spinner: "crescent",
+      spinner: 'crescent',
       duration: timeout,
       //   message: 'Please wait...',
        translucent: translucent,
        cssClass: 'loadingDialog'
-      //duration: 5000,
+      // duration: 5000,
     }).then(a => {
       a.present().then(() => {
         console.log('presented');
@@ -63,9 +63,9 @@ export class IonicComponentService {
   }
 
 
-//**********************************//
-//****** Alert component    ******//
-//**********************************//
+// **********************************//
+// ****** Alert component    ******//
+// **********************************//
 async presentAlert(msg) {
   const alert = await this.alertController.create({
     header: 'Alert',
@@ -76,23 +76,23 @@ async presentAlert(msg) {
   await alert.present();
 }
 
-//**********************************//
-//****** Toast  component    ******//
-//**********************************//
-async presentToast(msg,duration) {
+// **********************************//
+// ****** Toast  component    ******//
+// **********************************//
+async presentToast(msg, duration) {
   const toast = await this.toastController.create({
     message: msg,
     duration: duration,
-    color:"dark"
+    color: 'dark'
   });
   toast.present();
 }
 
-async presentToastWithOptions(header,msg,position) {
+async presentToastWithOptions(header, msg, position) {
   const toast = await this.toastController.create({
     header: header,
     message: msg,
-    color:"dark",
+    color: 'dark',
     position: position,
     buttons: [
       {
@@ -113,12 +113,12 @@ async presentToastWithOptions(header,msg,position) {
   });
   toast.present();
 }
-//**********************************//
-//****** Toggle sidemenu      ******//
-//**********************************//
+// **********************************//
+// ****** Toggle sidemenu      ******//
+// **********************************//
 sideMenu() {
-  console.log("toggle sidemenu")
-  this.menuCtrl.toggle(); //Add this method to your button click function
+  console.log('toggle sidemenu');
+  this.menuCtrl.toggle(); // Add this method to your button click function
 }
 
 

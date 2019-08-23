@@ -1,6 +1,6 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { AlertController,NavController,} from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { ShoppingService } from '../../services/shopping.service';
 // import { UserService } from '../../services/user.service';
 import { Observable, Subscription } from 'rxjs';
@@ -15,12 +15,12 @@ export class ShoppingWishlistPage implements OnInit {
 
 
   // userAuth: boolean = false;
-  // userId: any; 
+  // userId: any;
   categoryId: string;
-  viewType: string = "grid";
-  //public wishlists: any[];
-    // ******** for Cart ***********//
-    cart = [];
+  viewType: string;
+  // public wishlists: any[];
+  // ******** for Cart ***********//
+  cart = [];
   public wishlists: Observable<any[]>;
   constructor(
     public shoppingService: ShoppingService,
@@ -29,12 +29,13 @@ export class ShoppingWishlistPage implements OnInit {
     private navController: NavController,
     public router: Router,
     public alertController: AlertController,
- 
+
   ) { }
 
    ngOnInit() {
-    //await this.checkAuth();
-    console.log(">>>>>>>>> call getFavorite")
+     this.viewType = 'grid';
+    // await this.checkAuth();
+    console.log('>>>>>>>>> call getFavorite');
     this.wishlists = this.shoppingService.getWishlist();
     this.cart = this.shoppingService.getCart();
   }
@@ -43,29 +44,29 @@ export class ShoppingWishlistPage implements OnInit {
   //   if (user) {
   //     // do something
   //     //this.userId = await user.uid;
-  //     console.log("********** FAVORITE ="+await user.uid);
-  //     console.log("*********** YES USER already logged in")
+  //     console.log('********** FAVORITE ='+await user.uid);
+  //     console.log('*********** YES USER already logged in')
   //     this.userAuth = true;
   //     this.userId = user.uid;
 
-      
+
   //   } else {
   //     this.userAuth = false;
-  //     console.log("*************NO");
+  //     console.log('*************NO');
   //   }
   // }
 
 
-  getwishlists(){
-    console.log(">>>>>>>>> call getFavorite")
+  getwishlists() {
+    console.log('>>>>>>>>> call getFavorite');
     this.wishlists = this.shoppingService.getWishlist();
     // this.travelService.getFavPlace().subscribe(res => {
-    //   console.log("**************Get Favorite response="+res);
-    
+    //   console.log('**************Get Favorite response='+res);
+
     //   this.wishlists = res
     // });
   }
-  deleteFav(id){
+  deleteFav(id) {
    // this.travelService.deleteFavorite(id);
   }
 
@@ -89,9 +90,9 @@ export class ShoppingWishlistPage implements OnInit {
           text: 'Delete',
           handler: () => {
             console.log('Confirm Okay');
-            //this.shoppingService.removeFavorite(placeId);
+            // this.shoppingService.removeFavorite(placeId);
             // removeFavorite(
-            //   placeId: string, 
+            //   placeId: string,
             //   userId: string
             // )
           }

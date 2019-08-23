@@ -31,7 +31,7 @@ export class RegisterPage implements OnInit {
     public  formBuilder: FormBuilder
   ) { 
     //this.catId = this.activatedRoute.snapshot.paramMap.get('catId');
-   /// console.log("CatId="+this.catId);
+   /// console.log('CatId='+this.catId);
   
     let EMAIL_REGEXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   
@@ -60,57 +60,57 @@ export class RegisterPage implements OnInit {
       phone: ['', Validators.compose([Validators.minLength(2), Validators.required])],
       username:  ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
       password:  ['', Validators.compose([Validators.minLength(6), Validators.required])],
-  //['', Validators.compose([Validators.required])]
+  // ['', Validators.compose([Validators.required])]
     });
   }
-  
+
   ngOnInit() {
   }
   toggleSideMenu() {
-    console.log("call toggleSideMenu ")
-    this.menuCtrl.toggle(); //Add this method to your button click function
+    console.log('call toggleSideMenu ')
+    this.menuCtrl.toggle(); // Add this method to your button click function
   }
   submitFormTest(){
-    if (!this.registerForm.valid){
+    if (!this.registerForm.valid) {
       console.log(this.registerForm.value);
-      //this.presentAlert("invalid form");
-      console.log("invalid form")
+      // this.presentAlert('invalid form');
+      console.log('invalid form');
     } else {
       console.log(this.registerForm.value);
-      console.log("yes, ")
-      //this.userService.loginUser()
+      console.log('yes, ');
+      // this.userService.loginUser()
     }
   }
   /// old way ////
   async registerUser(){
-    console.log("call signopUser");
-    if (!this.registerForm.valid){
+    console.log('call signopUser');
+    if (!this.registerForm.valid) {
       console.log(this.registerForm.value);
-      console.log("invalid form")
-      //this.presentAlert("invalid form");
+      console.log('invalid form');
+      // this.presentAlert('invalid form');
     } else {
       this.ionicComponentService.presentLoading();
       console.log(this.registerForm.value);
-      console.log("yes, ")
+      console.log('yes, ');
       await this.userService.signupUser(
-        this.registerForm.value.firstname, 
+        this.registerForm.value.firstname,
         this.registerForm.value.lastname,
         this.registerForm.value.phone,
-        this.registerForm.value.username, 
+        this.registerForm.value.username,
         this.registerForm.value.password
       )
       .then(() => {
         this.ionicComponentService.dismissLoading();
           this.router.navigateByUrl('/side-menu/travel/tabs/tab1');
-          //loadingPopup.dismiss();
-          //this.nav.setRoot('AfterLoginPage');
-      }, (error) => { 
-       
-         var errorMessage: string = error.message;
+          // loadingPopup.dismiss();
+          // this.nav.setRoot('AfterLoginPage');
+      }, (error) => {
+
+         const errorMessage: string = error.message;
          this.ionicComponentService.dismissLoading();
-         this.ionicComponentService.presentAlert(errorMessage);      
+         this.ionicComponentService.presentAlert(errorMessage);
       });
-  
+
     }
   }
   //// new way ////

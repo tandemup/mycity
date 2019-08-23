@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 
-import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MenuController,NavController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { IonicComponentService } from '../../services/ionic-component.service';
 import { UserService } from '../../services/user.service';
@@ -18,7 +18,7 @@ import { User } from '../../../../node_modules/firebase';
 })
 export class LoginPage implements OnInit {
   redirectUrl: string;
-//****** form validation ******//
+// ****** form validation ******//
 public loginForm: FormGroup;
 public redirectPath: any;
   constructor(
@@ -30,17 +30,19 @@ public redirectPath: any;
 
     private ionicComponentService: IonicComponentService,
 
-    //****** form validation ********//
+    // ****** form validation ********//
     public  formBuilder: FormBuilder
-  ) { 
-    //this.catId = this.activatedRoute.snapshot.paramMap.get('catId');
-   /// console.log("CatId="+this.catId);
+  ) {
+    // this.catId = this.activatedRoute.snapshot.paramMap.get('catId');
+   /// console.log('CatId='+this.catId);
 
     let EMAIL_REGEXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  
+
     // this.registerForm = fb.group({
-    //let Email_Val =     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-  
+    // let Email_Val =
+    // /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*
+    // @(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+
     // this.registerForm = fb.group({
     //       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEXP)])],
     //       profileName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
@@ -67,53 +69,53 @@ public redirectPath: any;
   ngOnInit() {
     this.redirectUrl = this.activatedRoute.snapshot.queryParamMap.get('redirectUrl');
    // const secondParam: string = this.route.snapshot.queryParamMap.get('secondParamKey');
-    console.log("redirectUrl="+this.redirectUrl)
-    this.ionicComponentService.presentToast("Demo account: <br>username = bee@gmail.com  <br>password= 123456",15000)
+    console.log('redirectUrl=' + this.redirectUrl);
+    // this.ionicComponentService.presentToast('Demo account: <br>username = bee@gmail.com  <br>password= 123456', 15000);
   }
   toggleSideMenu() {
-    console.log("call toggleSideMenu ")
-    this.menuCtrl.toggle(); //Add this method to your button click function
+    console.log('call toggleSideMenu ');
+    this.menuCtrl.toggle(); // Add this method to your button click function
   }
-  submitFormTest(){
-    if (!this.loginForm.valid){
+  submitFormTest() {
+    if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
-      //this.presentAlert("invalid form");
-      console.log("invalid form")
+      // this.presentAlert('invalid form');
+      console.log('invalid form');
     } else {
       console.log(this.loginForm.value);
-      console.log("yes, ")
-      //this.userService.loginUser()
+      console.log('yes, ');
+      // this.userService.loginUser()
     }
   }
 
 
 
 
-  login(){
-    if (!this.loginForm.valid){
+  login() {
+    if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
-      //this.presentAlert("invalid form");
-      console.log("invalid form")
+      // this.presentAlert('invalid form');
+      console.log('invalid form');
     } else {
-      this.ionicComponentService.presentLoading()
+      this.ionicComponentService.presentLoading();
       console.log(this.loginForm.value);
-      console.log("yes, ")
+      console.log('yes, ');
       this.userService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
       .then( authData => {
-        console.log("Auth pass");   
-        this.ionicComponentService.dismissLoading()
-        if(this.redirectUrl){
-          this.router.navigateByUrl('/'+this.redirectUrl);
-        }else{
-          this.router.navigateByUrl('/profile');
+        console.log('Auth pass');
+        this.ionicComponentService.dismissLoading();
+        if (this.redirectUrl) {
+          this.router.navigateByUrl('/' + this.redirectUrl);
+        } else {
+          this.router.navigateByUrl('/side-menu/shopping/tabs/tab1');
         }
 
       }, error => {
-        //var errorMessage: string = error.message;
-        this.ionicComponentService.dismissLoading()
-        console.log("Error:"+error.message);
-        this.ionicComponentService.presentAlert(error.message)
-        
+        // var errorMessage: string = error.message;
+        this.ionicComponentService.dismissLoading();
+        console.log('Error:' + error.message);
+        this.ionicComponentService.presentAlert(error.message);
+
       });
     }
 }
@@ -128,7 +130,7 @@ public redirectPath: any;
 
   //     await this.userService.signupUser(email, password);
 
-      
+
   //     //await loading.dismiss();
   //     this.router.navigateByUrl('/side-menu/travel/tabs/tab1');
   //   } catch (error) {
@@ -149,17 +151,17 @@ public redirectPath: any;
 //   login(){
 //     if (!this.loginForm.valid){
 //         //this.presentAlert('Username password can not be blank')
-//         console.log("error");
+//         console.log('error');
 //     } else {
 //       let loadingPopup = this.loadingCtrl.create({
-//         spinner: 'crescent', 
+//         spinner: 'crescent',
 //         content: ''
 //       });
 //       loadingPopup.present();
 
 //       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
 //       .then( authData => {
-//         console.log("Auth pass");
+//         console.log('Auth pass');
 //         loadingPopup.dismiss();
 //         this.navCtrl.setRoot('AfterLoginPage');
 //       }, error => {

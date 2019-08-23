@@ -11,8 +11,8 @@ export class SideMenuPage implements OnInit {
   selectedPath = '';
 
   pages = [
- 
-   
+
+
     {
       title: 'City guide app',
       url: '/side-menu/travel',
@@ -38,11 +38,11 @@ export class SideMenuPage implements OnInit {
       url: '/side-menu/radio',
       icon: ''
     },
-   
-   
-    //******************************//
-    //********** Authentication*********//
-    //******************************//
+
+
+    // ******************************//
+    // ********** Authentication*********//
+    // ******************************//
     {
       title: 'Authentication',
       children: [
@@ -64,9 +64,9 @@ export class SideMenuPage implements OnInit {
         },
       ]
     },
-    //******************************//
-    //********** ui layout *********//
-    //******************************//
+    // ******************************//
+    // ********** ui layout *********//
+    // ******************************//
     {
       title: 'UI layouts',
       children: [
@@ -137,9 +137,9 @@ export class SideMenuPage implements OnInit {
         }
       ]
     },
-    //******************************//
-    //********** UI components*********//
-    //******************************//
+    // ******************************//
+    // ********** UI components*********//
+    // ******************************//
     {
       title: 'UI components',
       children: [
@@ -184,13 +184,13 @@ export class SideMenuPage implements OnInit {
           url: '/side-menu/skeleton'
         },
 
-        //********** Core ionic components*********//
+        // ********** Core ionic components*********//
 
-        
+
       ]
     },
   ];
- 
+
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
@@ -198,9 +198,9 @@ export class SideMenuPage implements OnInit {
       }
     });
   }
- 
+
   ngOnInit() {
- 
+
   }
- 
+
 }

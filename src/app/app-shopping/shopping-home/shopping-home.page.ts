@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { MenuController,ModalController,NavController} from '@ionic/angular';
-import { UserService } from '../../services/user.service';
-import { ShoppingService} from '../../services/shopping.service';
+import { MenuController, ModalController, NavController} from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
 
-import { ShoppingSearchPage } from '../shopping-search/shopping-search.page';
+import { UserService } from '../../services/user.service';
+import { ShoppingService} from '../../services/shopping.service';
 import { IonicComponentService} from '../../services/ionic-component.service';
+
+import { ShoppingSearchPage } from '../shopping-search/shopping-search.page';
 import { HideHeaderConfig } from '../../shared/hide-header.directive';
 // import { TravelSearchPageModule } from '../travel-search/travel-search.module';
 
@@ -17,20 +18,20 @@ import { HideHeaderConfig } from '../../shared/hide-header.directive';
   styleUrls: ['./shopping-home.page.scss'],
 })
 export class ShoppingHomePage implements OnInit {
- //******* HideHeader Config */
+ // ******* HideHeader Config */
  footerScrollConfig: HideHeaderConfig = { cssProperty: 'margin-bottom', maxValue: undefined };
  headerScrollConfig: HideHeaderConfig = { cssProperty: 'margin-top', maxValue: 45};
 
-  //Slider configuration 
+  // Slider configuration
   slideOptsOne = {
     initialSlide: 1,
     slidesPerView: 1,
-    autoplay:true
+    autoplay: true
   };
   // ******** for Cart ***********//
-   cart = [];
+  cart = [];
 
-  //********* Observable *********/
+  // ********* Observable *********/
 
   groups: Observable<any[]>;
   categories: Observable<any[]>;
@@ -38,7 +39,7 @@ export class ShoppingHomePage implements OnInit {
   recommended: Observable<any[]>;
   banners: Observable<any[]>;
 
-  constructor( 
+  constructor(
     public shoppingService: ShoppingService,
     public menuCtrl: MenuController,
     private activatedRoute: ActivatedRoute,
@@ -46,7 +47,7 @@ export class ShoppingHomePage implements OnInit {
     public router: Router,
     private ionicComponentService: IonicComponentService,
     private modalController: ModalController
-  ) { 
+  ) {
     this.cart = this.shoppingService.getCart();
     }
 
@@ -59,20 +60,20 @@ export class ShoppingHomePage implements OnInit {
     this.banners = this.shoppingService.getBanners();
   }
   toggleSideMenu() {
-    this.menuCtrl.toggle(); //Add this method to your button click function
+    this.menuCtrl.toggle(); // Add this method to your button click function
   }
   async openSearchModal() {
-    console.log("openModal");
+    console.log('openModal');
     const modal = await this.modalController.create({
       component: ShoppingSearchPage,
       componentProps: {
-        //categoryId: categoryId
+        // categoryId: categoryId
       }
     });
     return await modal.present();
   }
-  openDetail(url,itemId){
-    this.router.navigateByUrl('/'+url+'/'+itemId);
+  openDetail(url, itemId) {
+    this.router.navigateByUrl('/' + url + '/' + itemId);
   }
 
 

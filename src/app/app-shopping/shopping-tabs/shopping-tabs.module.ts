@@ -20,10 +20,12 @@ const routes: Routes = [
                 loadChildren: '../shopping-home/shopping-home.module#ShoppingHomePageModule',
               },
 
-            //  { path: 'shopping-payment/:addressId, loadChildren: ', loadChildren: './app-shopping/shopping-payment/shopping-payment.module#ShoppingPaymentPageModule' },
+            //  { path: 'shopping-payment/:addressId, loadChildren: ',
+            // loadChildren: './app-shopping/shopping-payment/shopping-payment.module#ShoppingPaymentPageModule' },
               { path: 'shopping-group/:groupId', loadChildren: '../shopping-group/shopping-group.module#ShoppingGroupPageModule' },
               { path: 'shopping-item/:categoryId', loadChildren: '../shopping-item/shopping-item.module#ShoppingItemPageModule' },
-              { path: 'shopping-detail/:itemId', loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }               
+              { path: 'shopping-detail/:itemId',
+                loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }
         ]
       },
       {
@@ -34,11 +36,12 @@ const routes: Routes = [
                 loadChildren: '../shopping-category/shopping-category.module#ShoppingCategoryPageModule',
               },
               { path: 'shopping-item/:categoryId', loadChildren: '../shopping-item/shopping-item.module#ShoppingItemPageModule' },
-              { path: 'shopping-detail/:itemId', loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }         
+              { path: 'shopping-detail/:itemId',
+                loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }
         ]
       },
       {
-        path: 'tab3', // Wish list 
+        path: 'tab3', // Wish list
         children: [
               {
                 path: '',
@@ -46,8 +49,9 @@ const routes: Routes = [
                 canActivate: [UserGuard]
               },
               { path: 'shopping-item/:categoryId', loadChildren: '../shopping-item/shopping-item.module#ShoppingItemPageModule' },
-              { path: 'shopping-detail/:itemId', loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }         
-            
+              { path: 'shopping-detail/:itemId',
+                loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }
+
         ]
       },
       {
@@ -58,8 +62,10 @@ const routes: Routes = [
                 loadChildren: '../shopping-my-order/shopping-my-order.module#ShoppingMyOrderPageModule',
                 canActivate: [UserGuard]
               },
-              { path: 'shopping-my-order-detail/:orderId', loadChildren: '../shopping-my-order-detail/shopping-my-order-detail.module#ShoppingMyOrderDetailPageModule' }    ,
-              { path: 'shopping-detail/:itemId', loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }         
+              { path: 'shopping-my-order-detail/:orderId',
+                loadChildren: '../shopping-my-order-detail/shopping-my-order-detail.module#ShoppingMyOrderDetailPageModule' }    ,
+              { path: 'shopping-detail/:itemId',
+                loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }
         ]
       },
       {
@@ -70,7 +76,8 @@ const routes: Routes = [
                 loadChildren: '../shopping-profile/shopping-profile.module#ShoppingProfilePageModule',
                 canActivate: [UserGuard]
               },
-              { path: 'shopping-detail/:itemId', loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }         
+              { path: 'shopping-detail/:itemId',
+                loadChildren: '../shopping-detail/shopping-detail.module#ShoppingDetailPageModule' }
         ]
       }
       // {

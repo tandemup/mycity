@@ -318,3 +318,23 @@ ion-badge {
     // right: 0px;
     // border-radius: 100%;
 }
+
+ion-item.group-info{
+    border-top: 1px solid #607D8B;
+    border-top: 1px solid #607D8B;
+    --border-color: #607D8B;
+    img{
+        height: 60px;
+    }
+    ion-buttons{
+        ion-button{
+            font-size: 16px;
+        }
+        ion-button.profile{
+            color: #607D8B;
+        }
+        ion-button.chat{
+            color: var(--ion-color-tertiary-shade);
+        }
+    }
+}

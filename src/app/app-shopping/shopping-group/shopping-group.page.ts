@@ -18,13 +18,12 @@ export class ShoppingGroupPage implements OnInit {
   public group: Observable<any>;
    // ******** for Cart ***********//
    cart = [];
-  constructor( 
+  constructor(
     public shoppingService: ShoppingService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public router: Router,
-  )
-    { 
+  ) {
       this.groupId = this.activatedRoute.snapshot.paramMap.get('groupId');
       this.cart = this.shoppingService.getCart();
     }
@@ -33,7 +32,7 @@ export class ShoppingGroupPage implements OnInit {
     this.items = this.shoppingService.getItemByGroupId(this.groupId);
     this.group = this.shoppingService.getGroupDetail(this.groupId);
   }
-  openDetail(url,itemId){
-    this.router.navigateByUrl('/'+url+'/'+itemId);
+  openDetail(url, itemId) {
+    this.router.navigateByUrl('/' + url + '/' + itemId);
   }
 }

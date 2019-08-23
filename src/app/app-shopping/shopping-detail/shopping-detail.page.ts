@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute , Router} from '@angular/router';
-import { ModalController,NavController, ToastController} from '@ionic/angular';
+import { ActivatedRoute , Router, NavigationExtras } from '@angular/router';
+import { ModalController, NavController, ToastController} from '@ionic/angular';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from '../../services/user.service';
 import { ShoppingService } from '../../services/shopping.service';
 import { IonicComponentService} from '../../services/ionic-component.service';
 
-// import { ShoppingImageGalleryPage } from '../shopping-image-gallery/shopping-image-gallery.page'; // import shopping image gallery component page
+// import { ShoppingImageGalleryPage } from '../shopping-image-gallery/shopping-image-gallery.page';
+// import shopping image gallery component page
 // import { ShoppingReviewAddPage } from '../shopping-review-add/shopping-review-add.page';
 import { Observable } from 'rxjs';
 
@@ -18,9 +19,9 @@ import { Observable } from 'rxjs';
 })
 export class ShoppingDetailPage implements OnInit {
 
-  parentPath:any;
+  parentPath: any;
 
-  //****** image slide  *******/
+  // ****** image slide  *******/
   sliderOpts = {
     zoom: false,
     slidesPerView: 1.5,
@@ -28,26 +29,29 @@ export class ShoppingDetailPage implements OnInit {
     centeredSlides: true,
   };
 
-  //**** toolbar for hide and show ****/
+  // **** toolbar for hide and show ****/
   showToolbar = false;
   showTitle = false;
   transition:boolean = false;
-    
+
 
   item: Observable<any>;
-  itemArray: any=[]; 
+  itemArray: any = [];
 
   itemRelated: Observable<any>;
 
-  itemOptions: any=[];
+  itemOptions: any = [];
   itemSubscribe: any;
- 
+
+  group: Observable<any>;
+  groupInfo: any;
+  groupSubscribe: any;
 
   itemId: any;
   categoryId: any;
 
 
-  //**** Size and Color  ****//
+  // **** Size and Color  ****//
   showAttribute1: boolean; // size
   showAttribute2: boolean; // color
   selectedColor: any;
@@ -58,27 +62,27 @@ export class ShoppingDetailPage implements OnInit {
    cart = [];
 
 
- //relatedPlaces:Observable<any[]>;
-  //relatedPlacesArray: any=[];
+  // relatedPlaces:Observable<any[]>;
+  // relatedPlacesArray: any=[];
   reviews: Observable<any[]>;
 
-  //**** User authentication  ****/
+  // **** User authentication  ****/
   userAuth: boolean = false; // Is user logged in ?
   userId: any;
 
 
-  //**** favorite  ****/
+  // **** favorite  ****/
   favorite: boolean = false;
   favArray: any;
-  fav
-	heartType: string = "heart-empty";
+  fav;
+  heartType: string = 'heart-empty';
 
 
-  //Configuration for each Slider
+  // Configuration for each Slider
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 1,
-    autoplay:true
+    autoplay: true
   };
 
   constructor(
@@ -90,14 +94,14 @@ export class ShoppingDetailPage implements OnInit {
       public router: Router,
       private ionicComponentService: IonicComponentService,
       private modalController: ModalController
-  ) 
-  { 
+  )
+  {
     this.itemId = this.activatedRoute.snapshot.paramMap.get('itemId');
     this.cart = this.shoppingService.getCart();
-    //console.log("categoryId="+ this.placeId);
-    //console.log(this.router.url,"Current URL");
+    // console.log('categoryId='+ this.placeId);
+    // console.log(this.router.url,'Current URL');
   }
-      
+
 
  async ngOnInit() {
     await this.getItemDetail();
@@ -108,77 +112,85 @@ export class ShoppingDetailPage implements OnInit {
   onSelectColor(color: any,colorName: any): void {
     this.selectedColor = color;
     this.selectedColorName = colorName;
-    console.log("color selected="+ JSON.stringify(this.selectedColor))
+    console.log('color selected='+ JSON.stringify(this.selectedColor))
   }
     // ******** get selected size ***********//
   onSelectSize(size: any): void {
     this.selectedSize = size;
-    console.log("size selected="+ JSON.stringify(this.selectedSize))
+    console.log('size selected='+ JSON.stringify(this.selectedSize))
   }
 
 
-  async getItemDetail(){
-    //console.log("1___userAuth before receive="+this.userAuth);
+  async getItemDetail() {
+    // console.log('1___userAuth before receive='+this.userAuth);
     this.userAuth = await this.userService.isLoggedIn();
-    //console.log("2___userAuth after receive="+this.userAuth);
+    // console.log('2___userAuth after receive='+this.userAuth);
     this.userId = await this.userService.getUserId();
-    //console.log("2.1___userId after receive="+this.userId);
+    // console.log('2.1___userId after receive='+this.userId);
     // use async pipe //
-    this.item =  await this.shoppingService.getItemById( this.itemId);
-     this.itemSubscribe =  this.item.subscribe(res => {
+    this.item =  await this.shoppingService.getItemById( this.itemId );
+    this.itemSubscribe =  this.item.subscribe(res => {
         this.itemArray = res;
         this.itemRelated = this.shoppingService.getRelatedItem(this.itemArray.shopping_categoryId , 5);
-        //********* shopping-item/favorite/userId  ***********//
-        this.heartType = res.favorite.includes(this.userId) ? 'heart' : 'heart-empty'
+        // ********* shopping-item/favorite/userId  ***********//
+        this.heartType = res.favorite.includes(this.userId) ? 'heart' : 'heart-empty';
+        this.getGroupInfo(res.shopping_groupId);
     });
+  }
 
-
+  async getGroupInfo(groupId) {
+    this.group = await this.shoppingService.getGroupDetail(groupId);
+    this.groupSubscribe = this.group.subscribe(group => {
+      this.groupInfo = group;
+      // console.log('Group is ', group);
+    });
   }
 
   ngOnDestroy() {
-		this.itemSubscribe.unsubscribe()
+    this.itemSubscribe.unsubscribe();
+    this.groupSubscribe.unsubscribe();
   }
 
-  
-	toggleHeart() {
-    console.log("calling toggleHeart");
-		if(this.heartType == 'heart-empty') {
-      console.log("Heart ON");
-      
+
+  toggleHeart() {
+    console.log('calling toggleHeart');
+    if (this.heartType == 'heart-empty') {
+      console.log('Heart ON');
+
       this.shoppingService.addWishlist(
         this.itemId,
-        this.itemArray.name, 
-        this.itemArray.rating, 
+        this.itemArray.name,
+        this.itemArray.rating,
         this.itemArray.image
       );
-			// this.postReference.update({
-			// 	likes: firestore.FieldValue.arrayUnion(this.user.getUID())
-			// })
-		} else {
-      console.log("Heart OFF");
+      // this.postReference.update({
+      // 	likes: firestore.FieldValue.arrayUnion(this.user.getUID())
+      // })
+    } else {
+      console.log('Heart OFF');
       this.shoppingService.removeWishlist(this.itemId);
-			// this.postReference.update({
-			// 	likes: firestore.FieldValue.arrayRemove(this.user.getUID())
-			// })
-		}
-	}
+      // this.postReference.update({
+      // 	likes: firestore.FieldValue.arrayRemove(this.user.getUID())
+      // })
+    }
+  }
   addToCart() {
-    console.log("call addToCart");
+    console.log('call addToCart');
     const addItem = {
-      //id :this.itemId, 
-      itemId:this.itemId,
+      // id :this.itemId,
+      itemId: this.itemId,
       name: this.itemArray.name,
       price: this.itemArray.price,
       description: this.itemArray.description,
       color: this.selectedColorName,
       size: this.selectedSize,
       image: this.itemArray.image
-      //image: this.image
-      }
+      // image: this.image
+      };
       // console.log(this.addOnItem);
-      // console.log("select SIZE="+ this.selectSize);
+      // console.log('select SIZE='+ this.selectSize);
     this.shoppingService.addToCart(addItem);
-    console.log("______addItem="+ JSON.stringify(addItem) );
+    console.log('______addItem=' + JSON.stringify(addItem) );
     this.router.navigateByUrl('/shopping-cart');
   }
 
@@ -188,13 +200,25 @@ export class ShoppingDetailPage implements OnInit {
       const scrollTop = $event.detail.scrollTop;
       this.transition = true;
       this.showToolbar = scrollTop >= 60;
-      //console.log("showToolbar="+this.showToolbar);
+      // console.log('showToolbar='+this.showToolbar);
       this.showTitle = scrollTop >= 60;
-      //console.log("showTitle="+this.showTitle);
-    }else{
+      // console.log('showTitle='+this.showTitle);
+    } else {
       this.transition = false;
     }
   }
 
+  gotoGroupDetail(groupID) {
+    this.router.navigateByUrl(`/side-menu/shopping/tabs/tab1/shopping-group/${groupID}`);
+  }
 
+  gotoChatRoomWithGroup() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: this.groupInfo,
+        type: 'retrailer'
+      }
+    };
+    this.router.navigate(['/side-menu/chat'], navigationExtras);
+  }
 }
