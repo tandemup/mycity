@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 export class ShoppingDetailPage implements OnInit {
 
   parentPath: any;
-
+  showColor: any;
   // ****** image slide  *******/
   sliderOpts = {
     zoom: false,
@@ -94,8 +94,7 @@ export class ShoppingDetailPage implements OnInit {
       public router: Router,
       private ionicComponentService: IonicComponentService,
       private modalController: ModalController
-  )
-  {
+  ) {
     this.itemId = this.activatedRoute.snapshot.paramMap.get('itemId');
     this.cart = this.shoppingService.getCart();
     // console.log('categoryId='+ this.placeId);
@@ -174,6 +173,8 @@ export class ShoppingDetailPage implements OnInit {
       // })
     }
   }
+
+
   addToCart() {
     console.log('call addToCart');
     const addItem = {
@@ -209,16 +210,16 @@ export class ShoppingDetailPage implements OnInit {
   }
 
   gotoGroupDetail(groupID) {
-    this.router.navigateByUrl(`/side-menu/shopping/tabs/tab1/shopping-group/${groupID}`);
+    this.router.navigateByUrl(`/shopping-group/${groupID}`);
   }
 
-  gotoChatRoomWithGroup() {
+  gotoChatRoomWithGroup(groupID) {
     const navigationExtras: NavigationExtras = {
       state: {
         data: this.groupInfo,
         type: 'retrailer'
       }
     };
-    this.router.navigate(['/side-menu/chat'], navigationExtras);
+    this.router.navigate(['/chat/' + groupID], navigationExtras);
   }
 }

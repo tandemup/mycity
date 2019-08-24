@@ -29,15 +29,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 
-// ******* Travel page module ********//
-import { TravelMapPageModule } from './app-travel/travel-map/travel-map.module';
-import { TravelMapModalPageModule } from './app-travel/travel-map-modal/travel-map-modal.module';
-import { TravelSearchPageModule } from './app-travel/travel-search/travel-search.module';
-import { TravelPlaceReviewAddPageModule } from './app-travel/travel-place-review-add/travel-place-review-add.module';
-import { TravelImageZoomPageModule } from './app-travel/travel-image-zoom/travel-image-zoom.module';
-
-// ******* Food page module ********//
-import { FoodSearchPageModule } from './app-food/food-search/food-search.module';
 // import image gallery page module
 // import { ImageModalPageModule } from './image-modal/image-modal.module';
 
@@ -45,23 +36,12 @@ import { FoodSearchPageModule } from './app-food/food-search/food-search.module'
 // ******* Shopping page module ********//
 import { ShoppingSearchPageModule } from './app-shopping/shopping-search/shopping-search.module'
 
-
-
-// ******* Real estate page module ********//
-import { RealSearchPageModule } from './app-real/real-search/real-search.module'
-import { RealMapPageModule } from './app-real/real-map/real-map.module'
-
-
-// ******* Radio station page module ********//
-import { RadioPlayerPageModule } from './app-radio/radio-player/radio-player.module';
-
-
 // ******* UI-layout / gallery viewer ********//
 import { GalleryViewerModalPageModule } from './ui-layouts/gallery-viewer-modal/gallery-viewer-modal.module';
 
 
 // ******** UI_components / modal detail *********/
-import { ModalDetailPageModule } from './ui-components/modal-detail/modal-detail.module';
+// import { ModalDetailPageModule } from './ui-components/modal-detail/modal-detail.module';
 
 
 // ******** ionic4 rating *********/
@@ -86,30 +66,12 @@ import { SharedModule} from './shared/shared.module';
     }),
     AppRoutingModule,
 
-
-    // ******* Travel page module ********//
-    TravelImageZoomPageModule,
-    TravelMapPageModule,
-    TravelMapModalPageModule,
-    TravelSearchPageModule,
-    TravelPlaceReviewAddPageModule,
-
-    // ******* Food page module ********//
-    FoodSearchPageModule,
-
     // ******* Shopping page module ********//
     ShoppingSearchPageModule,
    // ShoppingImageGalleryPageModule,
 
-    // ******* Real estate page module ********//
-    RealSearchPageModule,
-    RealMapPageModule,
-
-    // ******* Radio station page module ********//
-    RadioPlayerPageModule,
-
     // ******* UI-components / modal ********//
-    ModalDetailPageModule,
+    // ModalDetailPageModule,
 
     // ******* UI-layout / gallery ********//
     GalleryViewerModalPageModule,

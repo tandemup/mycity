@@ -18,23 +18,22 @@ export class ShoppingMyOrderPage implements OnInit {
    cart = [];
 
 
-  constructor( 
+  constructor(
     public userService: UserService,
     public shoppingService: ShoppingService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public router: Router,
 
-  )
-    { 
-      //this.categoryId = this.activatedRoute.snapshot.paramMap.get('categoryId');
-    //console.log("Get activatedRoute categoryId="+ this.activatedRoute.snapshot.paramMap.get('categoryId'));
-    console.log(this.router.url,"Current URL");
+  ) {
+    // this.categoryId = this.activatedRoute.snapshot.paramMap.get('categoryId');
+    // console.log("Get activatedRoute categoryId="+ this.activatedRoute.snapshot.paramMap.get('categoryId'));
+    console.log(this.router.url,'Current URL');
     this.cart = this.shoppingService.getCart();
     }
 
   ngOnInit() {
-    //this.getPlace();
+    // this.getPlace();
     this.myOrders = this.shoppingService.getMyOrders();
   }
 

@@ -25,8 +25,7 @@ export class ShoppingItemPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public router: Router,
-  )
-    { 
+  ) {
       this.categoryId = this.activatedRoute.snapshot.paramMap.get('categoryId');
       this.cart = this.shoppingService.getCart();
     }
@@ -35,11 +34,11 @@ export class ShoppingItemPage implements OnInit {
     this.items = this.shoppingService.getItemByCatId(this.categoryId);
   }
 
-  openTest(categoryId){
-    console.log("openTest"+ categoryId);
+  openTest(categoryId) {
+    console.log('openTest' + categoryId);
   }
 
-  openDetail(url,itemId){
-    this.router.navigateByUrl('/'+url+'/'+itemId);
+  openDetail(url, itemId) {
+    this.router.navigateByUrl('/' + url + '/' + itemId);
   }
 }

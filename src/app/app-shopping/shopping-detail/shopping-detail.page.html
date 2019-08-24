@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar class="first" color="primary" [class.show-background]="showToolbar">
+    <ion-toolbar class="first" color="tertiary" [class.show-background]="showToolbar">
         <ion-buttons color="orange" slot="start" [class.show-background]="showColor">
             <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -57,7 +57,7 @@
                     <ion-icon slot="icon-only"  name="md-person"></ion-icon>
                     Profile
                 </ion-button>
-                <ion-button color="tertiary" class="chat" (click)="gotoChatRoomWithGroup()">
+                <ion-button color="tertiary" class="chat" (click)="gotoChatRoomWithGroup(groupInfo.id)">
                     <ion-icon slot="icon-only"  name="ios-chatbubbles"></ion-icon>
                     Chat Now
                 </ion-button>
@@ -200,7 +200,7 @@
  <ion-footer >
     <ion-toolbar>
         <!-- <ion-button  expand="block"  color="orange" (click)="goAddReview()">Write review</ion-button> -->
-        <ion-button color="bluegrey" expand="full" (click)="addToCart()">Add to Cart</ion-button>
+        <ion-button color="bluegrey" expand="full" fill="solid" (click)="addToCart()">Add to Cart</ion-button>
         <!-- <ion-button  fill="none"  slot="end">
             <ion-icon slot="icon-only"  color="orange" name="ios-share-outline"></ion-icon>
         </ion-button> -->

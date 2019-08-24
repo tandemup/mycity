@@ -1,24 +1,23 @@
-
-<ion-header no-border >
-    <ion-toolbar color="bluegrey">
-            <!-- <ion-buttons color="light" slot="start" >
-                <ion-back-button></ion-back-button>
-            </ion-buttons> -->
-            <ion-title color="light" class="main-header6">Category</ion-title>
-            <ion-buttons slot="end">
-                <ion-button routerLink="/shopping-cart" >
-                    <ion-badge color="danger" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
-                    <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
-                </ion-button>
-            </ion-buttons>
+<ion-header no-border>
+    <ion-toolbar color="tertiary">
+        <ion-buttons color="light" slot="start" >
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light" class="main-header6">Category</ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/shopping-cart">
+                <ion-badge color="danger" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
-<ion-content  no-padding >
-  <ion-card class="card-wide " tappable  *ngFor="let category of categories | async " >
-      <div class="card-wide-bg" [ngStyle]="{'background-image': 'url(' + category.image+ ')'}" routerLink="/side-menu/shopping/tabs/tab2/shopping-item/{{category.id}}" >
-        <h2 class="card-wide-title pop-in"> {{category.name}}</h2>       
-      </div>
-  </ion-card>
+<ion-content no-padding>
+    <ion-card class="card-wide " tappable *ngFor="let category of categories | async ">
+        <div class="card-wide-bg" [ngStyle]="{'background-image': 'url(' + category.image+ ')'}"
+             routerLink="/shopping-item/{{category.id}}">
+            <h2 class="card-wide-title pop-in"> {{category.name}}</h2>
+        </div>
+    </ion-card>
 </ion-content>
-

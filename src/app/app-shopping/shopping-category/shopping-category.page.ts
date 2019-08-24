@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { MenuController,ModalController,NavController} from '@ionic/angular';
+import { MenuController, ModalController, NavController} from '@ionic/angular';
 import { ShoppingService} from '../../services/shopping.service';
 import { Observable, Subscription } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class ShoppingCategoryPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public router: Router
-  ) { 
+  ) {
     this.cart = this.shoppingService.getCart();
     }
   ngOnInit() {

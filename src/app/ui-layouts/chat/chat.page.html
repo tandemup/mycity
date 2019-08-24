@@ -1,9 +1,9 @@
 <ion-header >
-    <ion-toolbar color="realgreen">
+    <ion-toolbar color="tertiary">
         <ion-buttons slot="start">
-            <ion-button (click)="toggleSideMenu()">
-                <ion-icon color="white"  class="menu-icon"  name="md-menu"  slot="start"></ion-icon>
-            </ion-button>
+            <ion-buttons color="light" slot="start" >
+                <ion-back-button></ion-back-button>
+            </ion-buttons>
         </ion-buttons>
       <ion-title class="chat-title" *ngIf="toUser">
         <img *ngIf="toUser.permission == 'retrailer'" class="header-pic" [src]="toUser.image" onerror="onProfilePicError(this)"/>

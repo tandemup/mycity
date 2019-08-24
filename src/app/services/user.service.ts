@@ -71,6 +71,8 @@ export class UserService {
       }
     });
   }
+
+
   // async doSomething(): Promise<string>  {
   //   const user = await this.isLoggedIn()
   //   if (user) {
@@ -98,6 +100,18 @@ export class UserService {
 
   // register
   signupUser(firstname: string, lastname: string, phone: string, username: string, password: string): Promise<any> {
+    const dummy_avatars = [
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img1.png?alt=media&token=de593d13-cee0-4dcd-b17a-7acdedf49fd8',
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img2.png?alt=media&token=25246cfa-0a6e-4a41-8f14-81a1a5e80148',
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img3.png?alt=media&token=b9899ac0-7647-424a-92a6-c96def4f8c78',
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img4.png?alt=media&token=acc50046-6ae1-44c8-b016-b356d8ba4236',
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img5.png?alt=media&token=f7b488b2-1a58-45ce-bd94-eb112ba2b38a',
+      'https://firebasestorage.googleapis.com/v0/b/tamargy-b9696.appspot.com/o/img6.png?alt=media&token=63865208-2b0e-4396-9856-c4e021a04bc8'
+    ];
+
+    const randIdx = Math.floor( (Math.random() * 100) % dummy_avatars.length);
+    const randAvatar = dummy_avatars[randIdx];
+
     return this.fireAuth.auth.createUserWithEmailAndPassword(username, password).then((newUser) => {
       console.log('userid=========' + newUser.user.uid);   // firebase.database().ref('/userProfile').child(newUser.uid).set({
         this.firestore.collection('userProfile').doc(newUser.user.uid).set({
@@ -105,7 +119,7 @@ export class UserService {
           firstname: firstname,
           lastname: lastname,
           email: username,
-          image: '',
+          avatar: randAvatar,
           phone: phone
         });
 
@@ -129,6 +143,12 @@ export class UserService {
     console.log('userId=' + this.userId);
     console.log('getUserProfile');
     return   this.firestore.doc<any>('userProfile/' + this.userId).valueChanges();
+  }
+
+  getUserProfileById(userId) {
+    console.log('userId=' + this.userId);
+    console.log('getUserProfile By Id');
+    return   this.firestore.doc<any>('userProfile/' + userId).valueChanges();
   }
 
 

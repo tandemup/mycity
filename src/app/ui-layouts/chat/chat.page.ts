@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewChild , ElementRef, NgZone } from '@angular/core';
-import { ActivatedRoute , Router} from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 import { FormControl, FormBuilder , FormGroup , Validators } from '@angular/forms';
 import { MenuController, IonContent, NavParams, NavController} from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -19,6 +19,7 @@ export class ChatPage implements OnInit {
   @ViewChild('content') private content: any;
 
   toUser: User;
+  toUserId: string;
 
   user: User;
 
@@ -50,18 +51,44 @@ export class ChatPage implements OnInit {
         this.toUser = this.router.getCurrentNavigation().extras.state.data;  console.log('[Chat] get toUser Profile ');
         this.toType = this.router.getCurrentNavigation().extras.state.type;
       } else {
-
+        console.log('[Chat] No extra states');
+        this.toUserId = this.route.snapshot.paramMap.get('id');
       }
+      this.processInit();
     });
+
   }
 
   ngOnInit() {
-    this.userService.getUserProfile().subscribe(user => {
-      console.log('[Chat] Profile arrived.');
-      this.user = user as User;
-      this.getMessages();
-    });
+
+
   }
+
+  processInit() {
+    console.log('[Chat] to user id is ', this.toUserId);
+    if (this.toUserId !== undefined) {
+      this.userService.getUserProfile().subscribe(user => {
+        console.log('[Chat] Profile arrived.', user);
+        user['id'] = this.userService.getUserId();
+        this.user = user as User;
+        // this.user.id = this.userService.getUserId();
+
+        this.userService.getUserProfileById(this.toUserId).subscribe(toUser => {
+          console.log('[Chat] to user profile arrived', toUser.id);
+          this.toUser = toUser as User;
+          this.getMessages();
+        });
+      });
+
+    } else {
+      this.userService.getUserProfile().subscribe(user => {
+        console.log('[Chat] Profile arrived.', user.id);
+        this.user = user as User;
+        this.getMessages();
+      });
+    }
+  }
+
 
   getMessages() {
     const ids = this.getIdArray();
@@ -71,6 +98,7 @@ export class ChatPage implements OnInit {
         this.scrollToBottom();
       });
     });
+    this.checkContactAndAdd();
   }
 
   send(message) {
@@ -92,6 +120,29 @@ export class ChatPage implements OnInit {
       this.chatService.addMessage(messageData);
     }
     this.chatBox = '';
+  }
+
+  checkContactAndAdd() {
+    if (this.user.id && this.toUser.id) {
+      const idsArr = this.getIdArray();
+      this.chatService.getContactByIdStr(idsArr.join('_')).subscribe(contact => {
+        console.log('[Chat] get contact --- check', contact);
+        if (contact.length === 0) {
+          console.log('[Chat] Need to add contact');
+          const contactInfo = {
+            ids: idsArr,
+            ids_str: idsArr.join('_'),
+            last_message: '',
+            last_time: new Date(),
+          };
+          console.log('[Chat page] new contact will be added', contactInfo);
+          contactInfo['toUser'] = this.toUser; contactInfo['myId'] = this.user.id;  this.chatService.addContact(contactInfo);
+          contactInfo['toUser'] = this.user; contactInfo['myId'] = this.toUser.id;  this.chatService.addContact(contactInfo);
+        }
+      });
+    } else {
+      console.log('[Chat] Not all user ids are given!');
+    }
   }
 
   getIdArray() {

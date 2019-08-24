@@ -101,7 +101,7 @@ export class RegisterPage implements OnInit {
       )
       .then(() => {
         this.ionicComponentService.dismissLoading();
-          this.router.navigateByUrl('/side-menu/travel/tabs/tab1');
+          this.router.navigateByUrl('/home');
           // loadingPopup.dismiss();
           // this.nav.setRoot('AfterLoginPage');
       }, (error) => {

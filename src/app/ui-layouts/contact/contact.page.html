@@ -1,0 +1,85 @@
+
+<ion-header  [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="start">
+            <ion-button (click)="toggleSideMenu()">
+                <ion-icon class="menu-icon"  name="md-menu" color="light" slot="start"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <!-- <ion-searchbar color="" placeholder="Search.." (ionFocus)="openSearchModal()" search-icon="ios-pin" ></ion-searchbar>   -->
+        <ion-title color="light" class="main-header6">Contacts</ion-title>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/shopping-cart" >
+                <ion-badge color="danger" *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                <ion-icon color="light" slot="icon-only" name="ios-cart"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="tertiary">
+       <ion-searchbar mode="ios" color="" placeholder="Search.." search-icon="search" ></ion-searchbar>  
+    </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content #pageContent no-padding>
+
+    <!--*********** Group by brand  ***********-->
+
+    <ion-item lines="none">
+        <h1 class="main-header5">Top Brands</h1>
+    </ion-item>
+    <div class="top-horizontal-scroll  slide-left ">
+        <ion-card tappable class="shop-main-h-card shop-card-s-wide "  *ngFor="let group of groups | async " (click)="openDetail('shopping-group',group.id)"  >
+            <div class="card-s-wide-bg ion-text-uppercase" [ngStyle]="{'background-image': 'url(' + group.image+ ')'}">
+                <!-- <h2 class="card-s-wide-title"> {{group.name}}</h2>  -->
+            </div>
+        </ion-card>
+    </div>
+
+    <ion-list>
+        <ion-list-header>Contacts</ion-list-header>
+        <ion-item-sliding *ngFor="let contact of contacts | async" (click)="openChat(contact)">
+
+            <ion-item lines="none" detail="false" button routerLink="/detail/{{contact.id}}"
+                    *ngIf="contact.toUser.permission == 'retrailer'">
+                <ion-avatar slot="start">
+                    <img [src]="contact.toUser.image">
+                </ion-avatar>
+                <ion-label>
+                    {{ contact.toUser.name }}
+                    <p>I am offline</p>
+                    <!-- <p>{{ item.createdAt | date: 'short' }}</p> -->
+                </ion-label>
+                <!-- <ion-note slot="end" color="primary">
+                    {{ contact.toUser.name }}
+                </ion-note> -->
+            </ion-item>
+
+            <ion-item lines="none" detail="false" button routerLink="/detail/{{contact.id}}"
+                    *ngIf="contact.toUser.permission != 'retrailer'">
+                <ion-avatar slot="start">
+                    <img [src]="contact.toUser.avatar">
+                </ion-avatar>
+                <ion-label>
+                    {{ contact.toUser.firstname }} {{ contact.toUser.lastname }}
+                    <p>I am online</p>
+                    <!-- <p>{{ item.createdAt | date: 'short' }}</p> -->
+                </ion-label>
+                <!-- <ion-note slot="end" color="primary">
+                    {{ contact.toUser.name }}
+                </ion-note> -->
+            </ion-item>
+
+            <ion-item-options side="end">
+                <ion-item-option (click)="remove(contact)" color="secondary">
+                    Check
+                    <ion-icon name="checkmark" slot="end"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
+
+

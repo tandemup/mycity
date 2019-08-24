@@ -27,11 +27,11 @@ export class ChatService {
     this.userId = '';
     this.fireAuth.authState.subscribe(user => {
       if (user) {
-        console.log('shoppingService ...  auth = true');
+        console.log('chatService ...  auth = true');
         this.userId = user.uid;
         this.userAuth = true;
       } else {
-        console.log('shoppingService ...  auth = false');
+        console.log('chatService ...  auth = false');
         this.userId = '';
         this.userAuth = false;
       }
@@ -65,6 +65,43 @@ export class ChatService {
     return  this.firestore.collection<any>('message').add(message);
   }
 
+  getContactByIdStr(contactIdStr) {
+    console.log('contact ID string = ' + contactIdStr);
+    console.log('getContactById');
+    // return   this.firestore.doc<any>('contact' + userId).valueChanges();
+    return this.firestore.collection<any>('/contact', ref => ref
+    .where('ids_str', '==', contactIdStr))
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          console.log('####get a contact=' + data);
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  addContact(contact: any) {
+    console.log('[Chat Service] add Contact');
+    return  this.firestore.collection<any>('contact').add(contact);
+  }
+
+  getAllContactOfUser(myId) {
+    return this.firestore.collection<any>('contact', ref => ref
+    .where('myId', '==', myId))
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          // get id from firebase metadata
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
 
 // *****************************************************//
 // ******** User's wishlist item by userId  *********//
@@ -236,26 +273,5 @@ addReview(
   });
 
 }
-
-// ****************************************//
-// ******   Reviews  by placeId  ******//
-// ****************************************//
-// getReviews(placeId: string) {
-//   console.log('###### get review service placeId='+placeId);
-//   return this.firestore.collection<any>('/travel_review', ref => ref
-//   .where('travel_placeId', '==', placeId))
-//   .snapshotChanges().pipe(
-//     map(actions => {
-//       return actions.map(a => {
-//         const data = a.payload.doc.data();
-//         // get id from firebase metadata
-//         const id = a.payload.doc.id;
-//         console.log('####Review ='+data);
-//         return { id, ...data };
-//       });
-//     })
-//   );
-// }
-
 
 }

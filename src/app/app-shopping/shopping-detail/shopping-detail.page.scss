@@ -137,7 +137,7 @@ ion-avatar{
     -webkit-animation: fadein 0.5s; /* Safari and Chrome */
     -o-animation: fadein 0.5s; /* Opera */
     
-    background: #607D8B;
+    background: var(--ion-color-tertiary-tint);
 }
 // .show-invert{
 //     --color:"#F9690E";

@@ -49,7 +49,7 @@ export class ShoppingProfilePage implements OnInit {
     console.log('LOGOUT');
     this.ionicComponentService.presentToast('Logged out', 3000);
     // this.ionicComponentService.dismissLoading();
-    this.router.navigateByUrl('/side-menu/shopping/tabs/tab1');
+    this.router.navigateByUrl('/home');
       // this.nav.setRoot('AfterLoginPage');
   }, (error) => {
      const errorMessage = error.message;

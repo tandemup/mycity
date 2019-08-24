@@ -107,7 +107,7 @@ public redirectPath: any;
         if (this.redirectUrl) {
           this.router.navigateByUrl('/' + this.redirectUrl);
         } else {
-          this.router.navigateByUrl('/side-menu/shopping/tabs/tab1');
+          this.router.navigateByUrl('/home');
         }
 
       }, error => {
