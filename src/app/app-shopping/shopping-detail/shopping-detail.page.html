@@ -48,7 +48,7 @@
         </div>
     </ion-item>
 
-    <ion-item lines="inset" *ngIf="groupInfo" no-padding class="group-info">
+    <ion-item lines="inset" *ngIf="groupInfo && groupInfo.id !== userId" no-padding class="group-info">
         <img [src]="groupInfo.image">
         <!-- <h4>{{groupInfo.name}}</h4> -->
         <div slot="end">

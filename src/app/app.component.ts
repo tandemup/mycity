@@ -3,8 +3,11 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router, RouterEvent } from '@angular/router';
+import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { ChatService } from './services/chat.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -153,7 +156,10 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private chatService: ChatService,
+    private userService: UserService,
   ) {
     this.initializeApp();
 
@@ -162,12 +168,27 @@ export class AppComponent {
         this.selectedPath = event.url;
       }
     });
+
     this.platform.pause.subscribe(() => {
       console.log('[APP] gonna to background');
+      this.userService.isLoggedIn().then(user => {
+        if (user) {
+          const tempSubs = this.chatService.updateOnlineStatusOfContact(user.uid, false).subscribe((result) => {
+            tempSubs.unsubscribe();
+          });
+        }
+      });
     });
 
     this.platform.resume.subscribe(() => {
       console.log('[APP] came back to forground');
+      this.userService.isLoggedIn().then(user => {
+        if (user) {
+          const tempSubs = this.chatService.updateOnlineStatusOfContact(user.uid, true).subscribe((result) => {
+            tempSubs.unsubscribe();
+          });
+        }
+      });
     });
 
     window.addEventListener('beforeunload', () => {

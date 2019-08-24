@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute , Router, NavigationExtras } from '@angular/router';
 import { MenuController, ModalController, NavController} from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ import { HideHeaderConfig } from '../../shared/hide-header.directive';
   templateUrl: './contact.page.html',
   styleUrls: ['./contact.page.scss'],
 })
-export class ContactPage implements OnInit {
+export class ContactPage implements OnInit, OnDestroy {
  // ******* HideHeader Config */
  footerScrollConfig: HideHeaderConfig = { cssProperty: 'margin-bottom', maxValue: undefined };
  headerScrollConfig: HideHeaderConfig = { cssProperty: 'margin-top', maxValue: 45};
@@ -36,6 +36,7 @@ export class ContactPage implements OnInit {
 
   groups: Observable<any[]>;
   contacts: Observable<any[]>;
+  contactsSubs: any;
   myId: string;
 
   constructor(
@@ -62,6 +63,7 @@ export class ContactPage implements OnInit {
       }
       this.myId = user.uid;
       this.contacts = this.chatService.getAllContactOfUser(this.myId);
+      this.contactsSubs = this.contacts.subscribe();
     });
   }
 
@@ -90,5 +92,9 @@ export class ContactPage implements OnInit {
       }
     };
     this.router.navigate(['/chat/' + contact.toUser.id], navigationExtras);
+  }
+
+  ngOnDestroy() {
+    this.contactsSubs.unsubscribe();
   }
 }

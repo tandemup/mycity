@@ -41,7 +41,7 @@ export class ChatService {
 
 
   getAllMessages(ids) {
-    // console.log('_____START getItemByCatId()=' + categoryId);
+    console.log('_____START getAllMessages()=' , ids);
     const idsStr: String = ids.join('_'); console.log('[Chat service] ID string is ', idsStr);
     return this.firestore.collection<any>('/message', ref => ref
     .where('ids', '==',  idsStr)
@@ -50,10 +50,15 @@ export class ChatService {
     )
     .snapshotChanges().pipe(
       map(actions => {
+        console.log('___[Chat Service] get all messages');
         return actions.map(a => {
           const data = a.payload.doc.data();
           // get id from firebase metadata
           const id = a.payload.doc.id;
+          // this.firestore.doc(`message/${id}`).update({
+          //   received: true,
+          //   receivedAt: new Date()
+          // });
           // console.log(data);
           return { id, ...data };
         });
@@ -61,16 +66,49 @@ export class ChatService {
     );
   }
 
+  updateReceivedStatusOfMessages(ids: Array<String>, toId) {
+    console.log('[updateReceived Status] fromid is', toId);
+    return this.firestore.collection<any>('message', ref   => ref
+      .where('ids', '==', ids.join('_'))
+      .where('fromId', '==', toId)
+    )
+    .snapshotChanges().pipe(
+      map(actions => {
+        console.log('#####[Chat Service] gonna update receive status');
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          // get id from firebase metadata
+          const id = a.payload.doc.id;
+          this.firestore.doc(`message/${id}`).update({
+            received: true,
+            receivedAt: new Date()
+          });
+          // console.log(data);
+          return { id, ...data };
+        });
+      })
+    );
+    // .get().forEach((msg) => {
+    //   msg.docs.map( m => {
+    //     return this.firestore.doc(`message/${m.id}`).update({
+    //       received: true,
+    //       receivedAt: new Date()
+    //     });
+    //   });
+    // });
+  }
+
   addMessage(message) {
     return  this.firestore.collection<any>('message').add(message);
   }
 
-  getContactByIdStr(contactIdStr) {
+  getContactByIdStr(contactIdStr, myId) {
     console.log('contact ID string = ' + contactIdStr);
     console.log('getContactById');
     // return   this.firestore.doc<any>('contact' + userId).valueChanges();
     return this.firestore.collection<any>('/contact', ref => ref
-    .where('ids_str', '==', contactIdStr))
+    .where('ids_str', '==', contactIdStr)
+    .where('myId', '==', myId))
     .snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -89,6 +127,7 @@ export class ChatService {
   }
 
   getAllContactOfUser(myId) {
+    console.log('[Chat Service] Get all contacts of user');
     return this.firestore.collection<any>('contact', ref => ref
     .where('myId', '==', myId))
     .snapshotChanges().pipe(
@@ -101,6 +140,37 @@ export class ChatService {
         });
       })
     );
+  }
+
+  updateOnlineStatusOfContact(myId, status) {
+    console.log('[Chat service] ### update online status', myId, status);
+    return this.firestore.collection<any>('contact', ref => ref
+    .where('ids', 'array-contains', myId)
+    )
+    .snapshotChanges().pipe(
+      map(actions => {
+        console.log('#####[Chat Service] gonna update online status');
+        return actions.map(a => {
+          const data = a.payload.doc.data(); console.log('[Chat service] contact each data', data);
+          // get id from firebase metadata
+          const id = a.payload.doc.id;  console.log('[chat service] contact id is ', id);
+          if (data.myId !== myId) {
+            // this.firestore.doc(`contact/${id}`).update({
+            //   online: status,
+            // });
+            this.updateContactStatus(id, status);
+          }
+          // console.log(data);
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  async updateContactStatus(contactId, status) {
+    await this.firestore.doc(`contact/${contactId}`).update({
+      online: status,
+    });
   }
 
 // *****************************************************//

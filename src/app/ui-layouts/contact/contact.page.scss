@@ -58,3 +58,19 @@ ion-icon.sidemenu{
     font-size: 40px; 
 }
 
+span.online-status{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+span.online-status.online{
+    background: var(--ion-color-online);
+}
+
+span.online-status.offline{
+    background: var(--ion-color-offline);
+}

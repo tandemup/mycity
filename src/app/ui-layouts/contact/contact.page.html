@@ -42,14 +42,15 @@
         <ion-list-header>Contacts</ion-list-header>
         <ion-item-sliding *ngFor="let contact of contacts | async" (click)="openChat(contact)">
 
-            <ion-item lines="none" detail="false" button routerLink="/detail/{{contact.id}}"
+            <ion-item lines="none" detail="false" button
                     *ngIf="contact.toUser.permission == 'retrailer'">
                 <ion-avatar slot="start">
                     <img [src]="contact.toUser.image">
                 </ion-avatar>
                 <ion-label>
                     {{ contact.toUser.name }}
-                    <p>I am offline</p>
+                    <p *ngIf="!contact.online"><span class="online-status offline"></span>I am offline</p>
+                    <p *ngIf="contact.online"><span class="online-status online"></span>I am online</p>
                     <!-- <p>{{ item.createdAt | date: 'short' }}</p> -->
                 </ion-label>
                 <!-- <ion-note slot="end" color="primary">
@@ -57,14 +58,15 @@
                 </ion-note> -->
             </ion-item>
 
-            <ion-item lines="none" detail="false" button routerLink="/detail/{{contact.id}}"
+            <ion-item lines="none" detail="false" button
                     *ngIf="contact.toUser.permission != 'retrailer'">
                 <ion-avatar slot="start">
                     <img [src]="contact.toUser.avatar">
                 </ion-avatar>
                 <ion-label>
                     {{ contact.toUser.firstname }} {{ contact.toUser.lastname }}
-                    <p>I am online</p>
+                    <p *ngIf="!contact.online"><span class="online-status offline"></span>I am offline</p>
+                    <p *ngIf="contact.online"><span class="online-status online"></span>I am online</p>
                     <!-- <p>{{ item.createdAt | date: 'short' }}</p> -->
                 </ion-label>
                 <!-- <ion-note slot="end" color="primary">
